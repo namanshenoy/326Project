@@ -1,86 +1,26 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
-  </div>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex md6>
+        <v-card>
+          <v-card-title>Hello World</v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam earum dolores
+             quos fugiat delectus quisquam facilis. Quidem vitae nulla amet, necessitatibus et quae
+             deleniti quod itaque blanditiis ex, alias similique, nesciunt omnis aliquam ratione
+             ullam a exercitationem! Explicabo possimus voluptas consequuntur optio, nostrum voluptate
+             modi quis in. Fugit corrupti eligendi nostrum. Deleniti itaque, nesciunt iure nisi ducimus
+             voluptas blanditiis sed minima minus harum quo maiores esse. Aperiam cum, natus accusantium
+             aspernatur excepturi, maiores, suscipit magnam debitis molestiae vitae mollitia. Placeat!
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn right flat color="teal lighten-2">Lorem</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

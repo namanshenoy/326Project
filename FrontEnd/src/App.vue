@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-app id="app-container" dark>
+      <img src="./assets/logo.png">
+      <router-view/>
+    </v-app>
+    <v-footer class="pa-3" id="footer">
+      <v-spacer></v-spacer><div>© Intraleagues {{ new Date().getFullYear() }}</div><v-spacer></v-spacer>
+    </v-footer>
   </div>
 </template>
 
@@ -19,5 +24,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#footer{
+  margin-top:1em;
 }
 </style>
