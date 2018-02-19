@@ -83,7 +83,7 @@
                 <v-list-tile-content>
                   <v-checkbox
                     label="Socks"
-                    v-model="hollister"
+                    v-model="socksType"
                   ></v-checkbox>
                 </v-list-tile-content>  
               </v-list-tile>
@@ -220,7 +220,7 @@
           <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
           <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
           <div style="width:20vw"></div>
-          <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
+          <v-text-field append-icon="search" label="Socks" hide-details single-line style="width:40vw"></v-text-field>
           <div style="width:10vw"></div>
           <v-toolbar-items right>
             <v-btn flat><v-icon left>account_circle</v-icon>User</v-btn>
@@ -231,16 +231,16 @@
         <v-content>
           <v-container>
             <v-layout row wrap>
-              <v-flex v-for="i in 10" class="item-card" xs12>
+              <v-flex v-for="i in 3" class="item-card" xs12>
                 <v-card>
                   <v-card-content style="height:10vh">
                     <v-layout>
                       <v-flex xs4 style="margin-left:-10%;">
-                        <div style="width:100%; height:100%; background-image: url('images/jeans.jpg'); background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
+                        <div style="width:100%; height:100%; background-image: url('images/socks.jpg'); background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
                       </v-flex>
                       <v-flex xs8>
-                        <h1>PANTS!</h1>
-                        <p>You kinda need them to not be weird!</p>
+                        <h1>Socks!</h1>
+                        <p>You kinda need them to wear shoes!!</p>
                       </v-flex>
                     </v-layout>
                   </v-card-content>
@@ -265,6 +265,7 @@
               genderDrawer: true,
               sizeDrawer: true,
               storesDrawer: true,
+              socksType: true,
               priceRange: 0,
               data_test: 'Hello World Test',
               drawer: true,
