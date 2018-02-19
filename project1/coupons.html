@@ -220,7 +220,7 @@
           <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
           <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
           <div style="width:20vw"></div>
-          <v-text-field append-icon="search" label="Search..." hide-details single-line style="width:40vw"></v-text-field>
+          <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
           <div style="width:10vw"></div>
           <v-toolbar-items right>
             <v-btn flat><v-icon left>account_circle</v-icon>User</v-btn>
@@ -229,34 +229,22 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-content>
-          <v-container pa-0>
+          <v-container>
             <v-layout row wrap>
-              <v-flex xs12>
-                <v-carousel
-                  style="height:50vh"
-                  cycle
-                  :interval="3000"
-                  transition="fade-transition"
-                  reverse-transition="fade-transition"
-                >
-                  <v-carousel-item src="images/jeans.jpg"></v-carousel-item>
-                  <v-carousel-item src="images/galjeanses.jpg"></v-carousel-item>
-                  <v-carousel-item src="images/jeanses.jpg"></v-carousel-item>
-                </v-carousel>
-              </v-flex>
-              <v-flex xs1>
-                <img src="images/jeans.jpg">
-              </v-flex>
-              <v-flex xs11>
-                <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
-                <div style="position:absolute;z-index:99;margin-top:11vh; max-height:50vh;width:40vw;padding-left:10%;">
-                  <h1>Jeanses</h1>
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem esse? At, in. Atque tempore quaerat natus, nesciunt minus qui quia. Non molestiae quos eius laborum corrupti in optio. Doloremque praesentium illum nemo, quibusdam aut molestias atque tempora quam est excepturi dignissimos fuga, voluptates adipisci necessitatibus repellat enim. Harum ad perspiciatis tenetur vero maiores quis magni eum debitis quae velit optio repellat quibusdam fuga iusto rerum sequi, adipisci vel dolorum placeat, deserunt nam reprehenderit nobis aut? Maiores pariatur quia asperiores!
-                  </p>
-                  <v-btn>Add to Cart</v-btn>
-                  <v-btn>See on Site</v-btn>
-                </div>
+              <v-flex v-for="i in 3" class="item-card" xs12>
+                <v-card>
+                  <v-card-content style="height:10vh">
+                    <v-layout>
+                      <v-flex xs4 style="margin-left:-8%;">
+                        <div style="width:100%; height:90%; background-image: url('https://i.forbesimg.com/media/lists/companies/american-eagle-outfitters_416x416.jpg'); background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
+                      </v-flex>
+                      <v-flex xs8>
+                        <h1>40% OFF YOUR PURCHASE!</h1>
+                        <p>Uuse this coupon to get 40% off anything from American Eagle Outfitters</p>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-content>
+                </v-card>
               </v-flex>
             </v-layout>
           </v-container>
@@ -271,7 +259,7 @@
           data: function (){
             return {
               hAndM: false,
-              americanEagle: false,
+              americanEagle: true,
               hollister: false,
               clothingTypeDrawer: true,
               genderDrawer: true,
