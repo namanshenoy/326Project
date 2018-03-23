@@ -25,7 +25,7 @@ SECRET_KEY = 's=u+m0=fb*y+g*503ift$=db6#&0(nz^0@dqmr03qkrret3856'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.173.49.88', '127.0.0.1']
+ALLOWED_HOSTS = ['35.173.49.88', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Site'
+    'Site',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 print(os.path.join(BASE_DIR, 'static'))
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        #if we want browasble API
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    #'DEFAULT_PARSER_CLASSES': (
+    #    'rest_framework.parsers.JSONParser',
+    #),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+        #'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
+}

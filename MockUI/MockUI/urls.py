@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 import Site.views as site_views
+from Site import APIViews
 
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'home/', site_views.home),
+    url(r'^products/$', APIViews.ProductInfoAPIView.as_view(), name='ProductListAPI'),
 ]
