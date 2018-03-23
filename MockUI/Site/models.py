@@ -1,13 +1,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Cart(models.Model):
     date_time = models.DateTimeField()
-    product = models.ForeignKey('Product')
+    product = models.ForeignKey('Product', blank=True, null=True)
     
-    def__str__(self):
+    def __str__(self):
         return self.date_time
 
 
@@ -21,9 +21,11 @@ class Coupon(models.Model):
         return self.description
 
 
-class Historyentry(models.Model):
+class HistoryEntry(models.Model):
     date_time = models.DateTimeField()
-    product = models.ForeignKey('Product')    class Meta:
+    product = models.ForeignKey('Product', blank=True, null=True)
+    
+    class Meta:
         verbose_name = 'History Entry'
         verbose_name_plural = 'History Entries'
 
@@ -39,6 +41,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class Store(models.Model):
     store_url = models.CharField(max_length=200)
     title = models.CharField(max_length = 50)
@@ -48,9 +51,9 @@ class Store(models.Model):
         return self.title
 
 class Userinfo(models.Model):
-    cart = models.ForeignKey(Cart, unique=True)
-    history = models.ForeignKey(Historyentry)
-    user = models.OneToOne('User', unique=True)
+    cart = models.ForeignKey(Cart)
+    history = models.ForeignKey(HistoryEntry)
+    user = models.OneToOneField(User)
     
     class Meta:
         verbose_name = 'User Information'
