@@ -5,8 +5,7 @@ from django.views import generic
 
 # Create your views here.
 def home(request):
-    html = "<html><body>Hello World!</body></html>"
-    return HttpResponse(html)
+    return render(request, 'home.html', {})
 
 
 class StoreView(generic.DetailView):

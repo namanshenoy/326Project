@@ -27,7 +27,7 @@ media
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
-
+*/.vscode/
 ### Cloud 9 ###
 *c9*
 
