@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Cart(models.Model):
     date_time = models.DateTimeField()
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.date_time
 
@@ -16,7 +16,7 @@ class Coupon(models.Model):
     description = models.TextField()
     coupon_type = models.CharField(max_length=64)
     discount = models.DecimalField(max_digits=10, decimal_places=5)
-    
+
     def __str__(self):
         return self.description
 
@@ -24,7 +24,7 @@ class Coupon(models.Model):
 class HistoryEntry(models.Model):
     date_time = models.DateTimeField()
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
-    
+
     class Meta:
         verbose_name = 'History Entry'
         verbose_name_plural = 'History Entries'
@@ -37,7 +37,7 @@ class Product(models.Model):
     source = models.CharField(max_length=200)
     name = models.TextField()
     views = models.IntegerField()
-    
+
     def __str__(self):
         return self.name
 
@@ -52,11 +52,11 @@ class Store(models.Model):
     def __str__(self):
         return self.title
 
-class Userinfo(models.Model):
+class UserInfo(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     history = models.ForeignKey(HistoryEntry, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     class Meta:
         verbose_name = 'User Information'
         verbose_name_plural = 'User Information'
