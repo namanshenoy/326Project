@@ -46,6 +46,8 @@ class Store(models.Model):
     store_url = models.CharField(max_length=200)
     title = models.CharField(max_length = 50)
     description = models.TextField()
+    products = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
+    coupons = models.ForeignKey('Coupon', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
