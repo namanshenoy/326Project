@@ -28,5 +28,7 @@ media
 !.vscode/extensions.json
 .history
 
+### Cloud 9 ###
+*c9*
 
 # End of https://www.gitignore.io/api/visualstudiocode
