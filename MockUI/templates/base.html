@@ -15,8 +15,7 @@
   <div id="app">
     <v-app>
       <v-toolbar app fixed flat clipped-left clipped-right>
-        <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
-        <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
+        <v-toolbar-title><v-icon>whatshot</v-icon>Teemo</v-toolbar-title>
         <div style="width:20vw"></div>
         <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
         <div style="width:10vw"></div>
@@ -28,5 +27,17 @@
       </v-toolbar>
     </v-app>
   </div>
-  {% block content %}{% endblock %}
-</body>
+    {% block content %}{% endblock %}
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: function (){
+        return {}
+        }
+      })
+  </script>
+  </body>
+</html>
