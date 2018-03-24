@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Cart(models.Model):
     date_time = models.DateTimeField()
-    product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
+    products = models.ManyToManyField('Product', blank=True, related_name="%(app_label)s_%(class)s_products")
 
     def __str__(self):
         return self.date_time
@@ -37,10 +37,12 @@ class Product(models.Model):
     source = models.CharField(max_length=200)
     name = models.TextField()
     views = models.IntegerField()
+    size_type = models.CharField(max_length=64)
+    size_primary = models.DecimalField(max_digits=10, decimal_places=5)
+    size_secondary = models.DecimalField(max_digits=10, decimal_places=5)
 
     def __str__(self):
         return self.name
-
 
 class Store(models.Model):
     store_url = models.CharField(max_length=200)
