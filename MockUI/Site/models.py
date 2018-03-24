@@ -37,9 +37,9 @@ class Product(models.Model):
     source = models.CharField(max_length=200)
     name = models.TextField()
     views = models.IntegerField()
-    size_type = models.CharField(max_length=64)
-    size_primary = models.DecimalField(max_digits=10, decimal_places=5)
-    size_secondary = models.DecimalField(max_digits=10, decimal_places=5)
+    size_type = models.CharField(max_length=64, blank=True, null=True)
+    size_primary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    size_secondary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
     def __str__(self):
         return self.name
