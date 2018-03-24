@@ -231,14 +231,16 @@
         <v-content>
           <v-container id="cart-container">
             <v-layout row wrap>
+                {% for store in Stores%}
               <v-flex xs12>
                 <v-card>
                   <v-card-content >
                     <v-layout row wrap style="padding:5%;background:url('https://finditatthemall.com/system/rich/rich_files/rich_files/000/000/881/original/aelogo1.png?1466117063') no-repeat center;">
                       <v-flex xs12>
-                          <h1 style="color:black;text-shadow: 2px 2px white ">American Eagle</h1>
+                          <h1 style="color:black;text-shadow: 2px 2px white ">{{store.title}}</h1>
                       </v-flex>
                       {% for i in Cart.products %}
+                      {% ifequal i.source store.title %}
                       <v-flex class="item-card" xs12>
                         <v-card>
                           <v-card-content style="height:10vh">
@@ -251,12 +253,16 @@
                                 <p>{{i.product_type}}</p>
                                 <!--<p>{{i.description}}</p> Description may be too long resulting in irregular page visual-->
                                 <p>{{i.price}}</p>
+                                <!-- Modify to match product link to i.link
+                                <v-btn flat color = "cyan"><a href = "{{i.link}}"></a> View on page</v-btn>
+                                -->
                               </v-flex>
                         
                             </v-layout>
                           </v-card-content>
                         </v-card>
                       </v-flex>
+                      {% endifequal %}
                       {% endfor %}
                     </v-layout>
                   </v-card-content>
@@ -266,8 +272,9 @@
                   </v-card-actions>
                 </v-card>
               </v-flex>
+              {% endfor %}
 
-              <v-flex xs12>
+              <!--<v-flex xs12>
                 <v-card>
                   <v-card-content >
                     <v-layout row wrap style="padding:5%;background:url('http://www.jimmyjazz.com/customfiles/11_06_15_790x200_levis.jpg') no-repeat center;">
@@ -285,7 +292,7 @@
                               <v-flex xs8>
                                 <h1>{{i.name}}</h1>
                                 <p>{{i.product_type}}</p>
-                               <!-- <p>{{i.description}}</p> Description may be too long, resulting in irregular page visuals-->
+                               <p>{{i.description}}</p> Description may be too long, resulting in irregular page visuals
                                 <p>{{i.price}}</p>
                               </v-flex>
                             </v-layout>
@@ -300,7 +307,7 @@
                     <v-btn flat color="green">Go To Site</v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-flex>
+              </v-flex>-->
             </v-layout>
           </v-container>
         </v-content>
