@@ -27,7 +27,7 @@ from .serializers import *
 from django.contrib.auth import get_user_model
 from .models import *
 
-class ProductInfoAPIView(ListAPIView):
+class ProductByNameAPIView(ListAPIView):
     permission_classes = [AllowAny]
     queryset = Product.objects.all()
     serializer_class = ProductInfoSerializer
@@ -35,6 +35,6 @@ class ProductInfoAPIView(ListAPIView):
     #def get_queryset(self):
     #    return Order.objects.filter(user=self.request.user, status='Open')
 
-    #def filter_queryset(self, queryset):
-    #    queryset = super(OrderInfoAPIView, self).filter_queryset(queryset)
-    #    return queryset.order_by('-id')
+    def filter_queryset(self, queryset):
+        queryset = super(ProductInfoAPIView, self).filter_queryset(queryset)
+        return queryset.order_by('name')
