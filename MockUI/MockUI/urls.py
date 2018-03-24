@@ -21,5 +21,5 @@ from Site import APIViews
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'home/', site_views.home),
-    url(r'^products/$', APIViews.ProductInfoAPIView.as_view(), name='ProductListAPI'),
+    url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
 ]
