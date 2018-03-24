@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Cart(models.Model):
     date_time = models.DateTimeField()
-    product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return str(self.date_time)
