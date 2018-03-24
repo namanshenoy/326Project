@@ -8,7 +8,7 @@ class Cart(models.Model):
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.date_time
+        return str(self.date_time)
 
 
 class Coupon(models.Model):
