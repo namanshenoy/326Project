@@ -40,9 +40,15 @@ class Product(models.Model):
     size_type = models.CharField(max_length=64, blank=True, null=True)
     size_primary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     size_secondary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    images = models.ManyToManyField('Image', blank=True, related_name="%(app_label)s_%(class)s_images")
 
     def __str__(self):
         return self.name
+
+
+class Image(models.Model):
+    source = models.URLField(null=True)
+
 
 class Store(models.Model):
     store_url = models.CharField(max_length=200)
