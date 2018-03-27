@@ -224,7 +224,8 @@
       <v-content>
         <v-container>
           <v-layout row wrap>
-            <v-flex v-for="i in 10" class="item-card" xs12>
+            {% for item in object_list %}
+            <v-flex xs12>
               <v-card class="item-inner">
                 <v-card-text style="height:10vh">
                   <v-layout>
@@ -232,13 +233,14 @@
                       <div class="jeans-card"></div>
                     </v-flex>
                     <v-flex xs8>
-                      <h1>PANTS!</h1>
-                      <p>You kinda need them to not be weird!</p>
+                      <h1>{{item.name}}</h1>
+                      <p>{{item.description}}</p>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
               </v-card>
             </v-flex>
+            {% endfor %}
           </v-layout>
         </v-container>
       </v-content>

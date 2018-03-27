@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product, HistoryEntry, Cart, Store, Coupon  
+from .models import Product, HistoryEntry, Cart, Store, Coupon
 from django.views import generic
 
 # Create your views here.
@@ -31,6 +31,7 @@ class ClothingListView(generic.ListView):
     """
     Generic class-based list view for a list of clothing.
     """
+    template_name = 'home.html'
     model = Product
     paginate_by = 10
 
@@ -47,15 +48,15 @@ class CartListView(generic.ListView):
     Generic class-based detail view for a users cart.
     """
     model = Product
-    paginate_by = 10 
+    paginate_by = 10
 
-    
+
 class CouponListView(generic.ListView):
     """
     Generic class-based detail view for a list of coupons.
     """
     model = Coupon
-    paginate_by = 10 
+    paginate_by = 10
 
 
 class CouponView(generic.DetailView):
