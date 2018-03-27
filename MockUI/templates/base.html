@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	{% load static %}
+  {% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,18 +26,12 @@
         </v-toolbar-items>
       </v-toolbar>
     </v-app>
-  </div>
     {% block content %}{% endblock %}
+  </div>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
-  <script>
-    new Vue({
-      el: '#app',
-      data: function (){
-        return {}
-        }
-      })
-  </script>
+  {% block script_block %}
+  {% endblock %}
   </body>
 </html>
