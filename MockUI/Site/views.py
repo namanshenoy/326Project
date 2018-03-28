@@ -8,6 +8,18 @@ def home(request):
     return render(request, 'home.html', {})
 
 
+def cart(request):
+    return render(request, 'cart.html', {})
+
+
+def user(request):
+    return render(request, 'user_detail.html', {})
+
+
+def contact(request):
+    return render(request, 'contact.html', {})
+
+
 class StoreView(generic.DetailView):
     """
     Generic class-based detail view for a store.

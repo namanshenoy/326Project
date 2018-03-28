@@ -17,9 +17,15 @@ from django.conf.urls import url
 from django.contrib import admin
 import Site.views as site_views
 from Site import APIViews
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'home/', site_views.home),
     url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
+    url(r'cart/', site_views.cart, name='cart'),
+    url(r'user/', site_views.user, name='user'),
+    url(r'contact/', site_views.contact, name='contact'),
 ]
+
