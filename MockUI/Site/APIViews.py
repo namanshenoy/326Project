@@ -63,14 +63,13 @@ class RemoveFromCart(UpdateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartInfoSerializer
 
-    def get_object(self):
-        return UserInfo.objects.get(user=request.user.id).cart
-
     def update(self, request, *args, **kwargs):
         data = request.data
         serializer = self.get_serializer(data=data)
         cart_products = UserInfo.objects.get(user=request.user.id).cart.products
-        cart_products.remove(Product.objects.get(id=int(data['products'][0])))
+        for product in data['products']:
+            cart_products.remove(Product.objects.get(id=int(product)))
+        #cart_products.remove(Product.objects.get(id=int(data['products'][0])))
         if serializer.is_valid():
             return Response(serializer.errors, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
@@ -86,3 +85,17 @@ class ProductByNameAPIView(ListAPIView):
     def filter_queryset(self, queryset):
         queryset = super(ProductInfoAPIView, self).filter_queryset(queryset)
         return queryset.order_by('name')
+
+class ItemInCartAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        data = request.data
+        productId = self.kwargs.get('product_id')
+        cart_products = UserInfo.objects.get(user=request.user.id).cart.products
+        print(cart_products.filter(id=productId))
+        print('Product Id = ', productId)
+        if cart_products.filter(id=productId).exists():
+            return Response(data={'inCart':True})
+        else:
+            return Response(data={'inCart':False})

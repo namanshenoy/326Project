@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^cart/add/$', APIViews.AddToCart.as_view(), name='AddToCart'),
     url(r'^cart/remove/$', APIViews.RemoveFromCart.as_view(), name='RemoveFromCart'),
     url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
+    url(r'^checkItem/(?P<product_id>\d+)$', APIViews.ItemInCartAPIView.as_view(), name='CjeckItemAPI'),
     url(r'^user/$', site_views.user, name='user'),
     url(r'^contact/$', site_views.contact, name='contact'),
 ]
