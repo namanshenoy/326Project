@@ -16,3 +16,8 @@ class ProductInfoSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'price', 'product_type', 'description', 'source', 'name', 'views')
+
+class CartInfoSerializer(ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = ('id', 'products')
