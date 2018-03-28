@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    <div id="app">
+      <v-app>
+        <v-navigation-drawer
+          clipped
+          permanent
+          width="250"
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list expand dense>
+            <v-list-group v-model="storesDrawer">
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Stores
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="H and M"
+                    v-model="hAndM"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Hollister"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="American Eagle"
+                    v-model="americanEagle"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group  v-model="clothingTypeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                   Clothing Type
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Pants"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>  
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shirts"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shoes"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Socks"
+                    v-model="socksType"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+            </v-list-group>
+
+            <v-list-group v-model="sizeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                    Size
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Extra Small"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>  
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Small"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Medium"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Extra Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group>
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Price Range
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-slider v-model="priceRange"  step="10"></v-slider> 
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            
+          </v-list>
+        </v-navigation-drawer>
+        <v-navigation-drawer
+          clipped
+          right
+          width="250"
+          permanent
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list>
+            <v-list-tile  style="height:10vh">
+              <v-list-tile-content  style="height:10vh">
+                <v-card style="width:100%;">
+                    <v-card-title>
+                      <h1>Recommendations</h1>
+                    </v-card-title>
+                  </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list two-line style="padding-top:10vh">
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these jeanse!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:50vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/doctah.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+        <v-toolbar app fixed flat clipped-left clipped-right>
+          <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
+          <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
+          <div style="width:20vw"></div>
+          <v-text-field append-icon="search" label="Search..." hide-details single-line style="width:40vw"></v-text-field>
+          <div style="width:10vw"></div>
+          <v-toolbar-items right>
+            <v-btn flat><v-icon left>account_circle</v-icon>User</v-btn>
+            <v-btn flat><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+            <v-btn flat><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-content>
+          <v-container id="cart-container">
+            <v-layout row wrap>
+                {% for store in Stores%}
+              <v-flex xs12>
+                <v-card>
+                  <v-card-content >
+                    <v-layout row wrap style="padding:5%;background:url('https://finditatthemall.com/system/rich/rich_files/rich_files/000/000/881/original/aelogo1.png?1466117063') no-repeat center;">
+                      <v-flex xs12>
+                          <h1 style="color:black;text-shadow: 2px 2px white ">{{store.title}}</h1>
+                      </v-flex>
+                      {% for i in Cart.products %}
+                      {% ifequal i.source store.title %}
+                      <v-flex class="item-card" xs12>
+                        <v-card>
+                          <v-card-content style="height:10vh">
+                            <v-layout>
+                              <v-flex xs4 style="margin-left:-7.2%;">
+                                <div style="width:100%; height:100%; background-image: url('images/socks.jpg'); background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
+                              </v-flex>
+                              <v-flex xs8>
+                                <h1>{{i.name}}</h1>
+                                <p>{{i.product_type}}</p>
+                                <!--<p>{{i.description}}</p> Description may be too long resulting in irregular page visual-->
+                                <p>{{i.price}}</p>
+                                <!-- Modify to match product link to i.link
+                                <v-btn flat color = "cyan"><a href = "{{i.link}}"></a> View on page</v-btn>
+                                -->
+                              </v-flex>
+                        
+                            </v-layout>
+                          </v-card-content>
+                        </v-card>
+                      </v-flex>
+                      {% endifequal %}
+                      {% endfor %}
+                    </v-layout>
+                  </v-card-content>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="green"><a href= "{{Store.store_url}}"></a>Go To Site</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              {% endfor %}
+
+              <!--<v-flex xs12>
+                <v-card>
+                  <v-card-content >
+                    <v-layout row wrap style="padding:5%;background:url('http://www.jimmyjazz.com/customfiles/11_06_15_790x200_levis.jpg') no-repeat center;">
+                      <v-flex xs12>
+                          <h1 style="color:black;text-shadow: 2px 2px white ">Levi's</h1>
+                      </v-flex>
+                      {% for i in Cart.products %}
+                      <v-flex class="item-card" xs12>
+                        <v-card>
+                          <v-card-content style="height:10vh">
+                            <v-layout>
+                              <v-flex xs4 style="margin-left:-7.2%;">
+                                <div style="width:100%; height:100%; background-image: url('images/jeans.jpg'); background-position: center; background-repeat: no-repeat; background-size: contain;"></div>
+                              </v-flex>
+                              <v-flex xs8>
+                                <h1>{{i.name}}</h1>
+                                <p>{{i.product_type}}</p>
+                               <p>{{i.description}}</p> Description may be too long, resulting in irregular page visuals
+                                <p>{{i.price}}</p>
+                              </v-flex>
+                            </v-layout>
+                          </v-card-content>
+                        </v-card>
+                      </v-flex>
+                      {% end for %}
+                    </v-layout>
+                  </v-card-content>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="green">Go To Site</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>-->
+            </v-layout>
+          </v-container>
+        </v-content>
+      </v-app>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+    <script>
+        new Vue({
+          el: '#app',
+          data: function (){
+            return {
+              hAndM: false,
+              americanEagle: false,
+              hollister: false,
+              clothingTypeDrawer: true,
+              genderDrawer: true,
+              sizeDrawer: true,
+              storesDrawer: true,
+              socksType: false,
+              priceRange: 0,
+              data_test: 'Hello World Test',
+              drawer: true,
+              cart: [
+                  {
+                      name: ''
+                  },
+              ],
+              items: [
+                { title: 'Home', icon: 'dashboard' },
+                { title: 'About', icon: 'question_answer' }
+              ],
+              right: null
+              }
+            }
+          })
+    </script>
+    <style>
+      .item-card{
+        margin: 10px 0 0 0 ;
+      }
+
+      #cart-container > .layout > *{
+        margin:10px 0 0 0;
+      }
+    </style>
+</body>
+</html>

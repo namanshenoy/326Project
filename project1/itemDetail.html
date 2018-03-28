@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    <div id="app">
+      <v-app>
+        <v-navigation-drawer
+          clipped
+          permanent
+          width="250"
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list expand dense>
+            <v-list-group v-model="storesDrawer">
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Stores
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="H and M"
+                    v-model="hAndM"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Hollister"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="American Eagle"
+                    v-model="americanEagle"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group  v-model="clothingTypeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                   Clothing Type
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Pants"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>  
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shirts"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shoes"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Socks"
+                    v-model="socksType"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+            </v-list-group>
+
+            <v-list-group v-model="sizeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                    Size
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Extra Small"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>  
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Small"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Medium"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Extra Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>  
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group>
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Price Range
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-slider v-model="priceRange"  step="10"></v-slider> 
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            
+          </v-list>
+        </v-navigation-drawer>
+        <v-navigation-drawer
+          clipped
+          right
+          width="250"
+          permanent
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list>
+            <v-list-tile  style="height:10vh">
+              <v-list-tile-content  style="height:10vh">
+                <v-card style="width:100%;">
+                    <v-card-title>
+                      <h1>Recommendations</h1>
+                    </v-card-title>
+                  </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list two-line style="padding-top:10vh">
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these jeanse!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:50vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="images/doctah.jpg" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+        <v-toolbar app fixed flat clipped-left clipped-right>
+          <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
+          <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
+          <div style="width:20vw"></div>
+          <v-text-field append-icon="search" label="Search..." hide-details single-line style="width:40vw"></v-text-field>
+          <div style="width:10vw"></div>
+          <v-toolbar-items right>
+            <v-btn flat><v-icon left>account_circle</v-icon>User</v-btn>
+            <v-btn flat><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+            <v-btn flat><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-content>
+          <v-container pa-0>
+            <v-layout row wrap>
+              <v-flex xs12>
+                <v-carousel
+                  style="height:50vh"
+                  cycle
+                  :interval="3000"
+                  transition="fade-transition"
+                  reverse-transition="fade-transition"
+                >
+                  <v-carousel-item src="images/jeans.jpg"></v-carousel-item>
+                  <v-carousel-item src="images/galjeanses.jpg"></v-carousel-item>
+                  <v-carousel-item src="images/jeanses.jpg"></v-carousel-item>
+                </v-carousel>
+              </v-flex>
+              <v-flex xs1>
+                <img src="images/jeans.jpg">
+              </v-flex>
+              <v-flex xs11>
+                <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
+                <div style="position:absolute;z-index:99;margin-top:11vh; max-height:50vh;width:40vw;padding-left:10%;">
+                  <h1>Jeanses</h1>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem esse? At, in. Atque tempore quaerat natus, nesciunt minus qui quia. Non molestiae quos eius laborum corrupti in optio. Doloremque praesentium illum nemo, quibusdam aut molestias atque tempora quam est excepturi dignissimos fuga, voluptates adipisci necessitatibus repellat enim. Harum ad perspiciatis tenetur vero maiores quis magni eum debitis quae velit optio repellat quibusdam fuga iusto rerum sequi, adipisci vel dolorum placeat, deserunt nam reprehenderit nobis aut? Maiores pariatur quia asperiores!
+                  </p>
+                  <v-btn>Add to Cart</v-btn>
+                  <v-btn>See on Site</v-btn>
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-content>
+      </v-app>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+    <script>
+        new Vue({
+          el: '#app',
+          data: function (){
+            return {
+              hAndM: false,
+              americanEagle: false,
+              hollister: false,
+              clothingTypeDrawer: true,
+              genderDrawer: true,
+              sizeDrawer: true,
+              storesDrawer: true,
+              socksType: false,
+              priceRange: 0,
+              data_test: 'Hello World Test',
+              drawer: true,
+              items: [
+                { title: 'Home', icon: 'dashboard' },
+                { title: 'About', icon: 'question_answer' }
+              ],
+              right: null
+              }
+            }
+          })
+    </script>
+    <style>
+      .item-card{
+        margin: 10px 0 0 0 ;
+      }
+    </style>
+</body>
+</html>
