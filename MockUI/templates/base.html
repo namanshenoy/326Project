@@ -19,13 +19,13 @@
         <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
         <div style="width:10vw"></div>
         <v-toolbar-items right>
-          <v-btn flat :href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
-          <v-btn flat :href="{%url 'cart'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
-          <v-btn flat :href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
+          <v-btn flat href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
+          <v-btn flat href="{%url 'cart'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+          <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
         </v-toolbar-items>
       </v-toolbar>
+      {% block content %}{% endblock %}
     </v-app>
-    {% block content %}{% endblock %}
   </div>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>

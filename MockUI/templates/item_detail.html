@@ -50,7 +50,7 @@
               <v-list-tile slot=activator>
                 <v-list-tile-content>
                    Clothing Type
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                   <v-list-tile-content>
@@ -58,7 +58,7 @@
                       label="Pants"
                       v-model="hollister"
                     ></v-checkbox>
-                  </v-list-tile-content>  
+                  </v-list-tile-content>
                 </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -66,7 +66,7 @@
                     label="Shirts"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -74,7 +74,7 @@
                     label="Shoes"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -82,7 +82,7 @@
                     label="Socks"
                     v-model="socksType"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
             </v-list-group>
 
@@ -90,7 +90,7 @@
               <v-list-tile slot=activator>
                 <v-list-tile-content>
                     Size
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                   <v-list-tile-content>
@@ -98,7 +98,7 @@
                       label="Extra Small"
                       v-model="hollister"
                     ></v-checkbox>
-                  </v-list-tile-content>  
+                  </v-list-tile-content>
                 </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -106,7 +106,7 @@
                     label="Small"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -114,7 +114,7 @@
                     label="Medium"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -122,7 +122,7 @@
                     label="Large"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
@@ -130,7 +130,7 @@
                     label="Extra Large"
                     v-model="hollister"
                   ></v-checkbox>
-                </v-list-tile-content>  
+                </v-list-tile-content>
               </v-list-tile>
             </v-list-group>
             <v-list-group>
@@ -141,11 +141,11 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-slider v-model="priceRange"  step="10"></v-slider> 
+                  <v-slider v-model="priceRange"  step="10"></v-slider>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list-group>
-            
+
           </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer
@@ -223,23 +223,23 @@
                   transition="fade-transition"
                   reverse-transition="fade-transition"
                 >
-                  <v-carousel-item src="static/images/jeans.jpg"></v-carousel-item>
-                  <v-carousel-item src="static/images/galjeanses.jpg"></v-carousel-item>
-                  <v-carousel-item src="static/images/jeanses.jpg"></v-carousel-item>
+                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$"></v-carousel-item>
+                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_ob?$PDP_78_Main$"></v-carousel-item>
+                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_f?$PDP_78_Main$"></v-carousel-item>
                 </v-carousel>
               </v-flex>
               <v-flex xs1>
-                <img src="static/images/jeans.jpg">
+                <img src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$">
               </v-flex>
               <v-flex xs11>
                 <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
                 <div style="position:absolute;z-index:99;margin-top:11vh; max-height:50vh;width:40vw;padding-left:10%;">
-                  <h1>Jeanses</h1>
+                  <h1>{{ object.name }}</h1>
                   <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur, rem esse? At, in. Atque tempore quaerat natus, nesciunt minus qui quia. Non molestiae quos eius laborum corrupti in optio. Doloremque praesentium illum nemo, quibusdam aut molestias atque tempora quam est excepturi dignissimos fuga, voluptates adipisci necessitatibus repellat enim. Harum ad perspiciatis tenetur vero maiores quis magni eum debitis quae velit optio repellat quibusdam fuga iusto rerum sequi, adipisci vel dolorum placeat, deserunt nam reprehenderit nobis aut? Maiores pariatur quia asperiores!
+                    {{ object.description }}
                   </p>
-                  <v-btn>Add to Cart</v-btn>
-                  <v-btn>See on Site</v-btn>
+                  <v-btn href="" @click="addToCart()">Add to Cart</v-btn>
+                  <v-btn href="{{ object.source }}">See on Site</v-btn>
                 </div>
               </v-flex>
             </v-layout>
@@ -263,11 +263,17 @@
               priceRange: 0,
               data_test: 'Hello World Test',
               drawer: true,
+              productId: {{ object.id }},
               items: [
                 { title: 'Home', icon: 'dashboard' },
                 { title: 'About', icon: 'question_answer' }
               ],
               right: null
+              }
+            },
+            methods: {
+              addToCart () {
+                console.log(this.productId)
               }
             }
           })

@@ -225,7 +225,7 @@
         <v-container>
           <v-layout row wrap>
             {% for item in object_list %}
-            <v-flex xs12>
+            <v-flex xs12 @click="productRoute('{{ item.id }}')">
               <v-card class="item-inner">
                 <v-card-text style="height:10vh">
                   <v-layout>
@@ -234,13 +234,21 @@
                     </v-flex>
                     <v-flex xs8>
                       <h1>{{item.name}}</h1>
-                      <p>{{item.description}}</p>
+                      <p>{{item.price}}</p>
                     </v-flex>
                   </v-layout>
                 </v-card-text>
               </v-card>
             </v-flex>
             {% endfor %}
+            <v-flex xs4>
+              {% if page_obj.has_previous %}
+                <a href="/home?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              {% if page_obj.has_next %}
+                <a href="/home?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+            </v-flex>
           </v-layout>
         </v-container>
       </v-content>
@@ -271,6 +279,11 @@
             { title: 'About', icon: 'question_answer' }
           ],
           right: null
+          }
+        },
+        methods: {
+          productRoute (itemID) {
+            window.location = '/product/' + itemID
           }
         }
       })

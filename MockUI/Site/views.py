@@ -19,7 +19,6 @@ def user(request):
 def contact(request):
     return render(request, 'contact.html', {})
 
-
 class StoreView(generic.DetailView):
     """
     Generic class-based detail view for a store.
@@ -41,6 +40,8 @@ class ClothingView(generic.DetailView):
     Generic class-based detail view for a piece of clothing.
     """
     model = Product
+    pk_url_kwarg = "product_id"
+    template_name = "item_detail.html"
 
 
 class CartListView(generic.ListView):
