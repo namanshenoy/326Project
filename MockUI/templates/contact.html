@@ -1,144 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-  {% load static %}
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-  <title>{% block title_block %}ProductIO{% endblock %}</title>
-</head>
-<body>
-  <div id="app">
-    <v-app>
-      <v-navigation-drawer
-        clipped
-        right
-        width="250"
-        permanent
-        stateless
-        v-model="drawer"
-        floating
-        app
-      >
-        <v-list>
-          <v-list-tile  style="height:10vh">
-            <v-list-tile-content  style="height:10vh">
-              <v-card style="width:100%;">
-                  <v-card-title>
-                    <h1>Recommendations</h1>
-                  </v-card-title>
-                </v-card>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>Contact Us</title>{% endblock %}
+{% block content %}
+  <v-navigation-drawer
+    clipped
+    right
+    width="250"
+    permanent
+    stateless
+    v-model="drawer"
+    floating
+    app
+  >
+    <v-list>
+      <v-list-tile  style="height:10vh">
+        <v-list-tile-content  style="height:10vh">
+          <v-card style="width:100%;">
+              <v-card-title>
+                <h1>Recommendations</h1>
+              </v-card-title>
+            </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
 
-        <v-list two-line style="padding-top:10vh">
-          <v-list-tile style="height:40vh">
-            <v-list-tile-content style="height:40vh">
-              <v-card style="width:100%;">
-                <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
-                <v-card-title>
-                  Buy these jeanse!
-                </v-card-title>
-              </v-card>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile style="height:40vh">
-            <v-list-tile-content style="height:40vh">
-              <v-card style="width:100%;">
-                <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
-                <v-card-title>
-                  Buy these swacks!
-                </v-card-title>
-              </v-card>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile style="height:40vh">
-            <v-list-tile-content style="height:40vh">
-              <v-card style="width:100%;">
-                <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
-                <v-card-title>
-                  Buy these swacks!
-                </v-card-title>
-              </v-card>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile style="height:40vh">
-            <v-list-tile-content style="height:50vh">
-              <v-card style="width:100%;">
-                <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
-                <v-card-title>
-                  YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
-                </v-card-title>
-              </v-card>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
-      <v-toolbar app fixed flat clipped-left clipped-right>
-        <!--mv-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon -->
-        <v-toolbar-title><v-icon>whatshot</v-icon> Teemo</v-toolbar-title>
-        <div style="width:20vw"></div>
-        <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
-        <div style="width:10vw"></div>
-        <v-toolbar-items right>
-          <v-btn flat><v-icon left>account_circle</v-icon>User</v-btn>
-          <v-btn flat><v-icon left>shopping_basket</v-icon>Cart</v-btn>
-          <v-btn flat><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex text-xs-center>
-            <v-card class="elevation-0 transparent">
-                <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Contact us</div>
-                </v-card-title>
-                <v-card-text>
-                  Don't contact us, we won't respond.
-                </v-card-text>
-                <v-list class="layout justify-center">
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon class="grey--text">phone</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>413-867-5309</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon class="grey--text">place</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>Amherst, MA-US</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon class="grey--text">email</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>hi@no.lol</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-              </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-    </v-app>
-  </div>
-
-  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
-
+    <v-list two-line style="padding-top:10vh">
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these jeanse!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these swacks!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these swacks!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:50vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-navigation-drawer>
+  <v-content>
+  <v-container fluid fill-height>
+    <v-layout justify-center align-center>
+      <v-flex text-xs-center>
+        <v-card class="elevation-0 transparent">
+            <v-card-title primary-title class="layout justify-center">
+              <div class="headline">Contact us</div>
+            </v-card-title>
+            <v-card-text>
+              Don't contact us, we won't respond.
+            </v-card-text>
+            <v-list class="layout justify-center">
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">phone</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>413-867-5309</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">place</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Amherst, MA-US</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">email</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>hi@no.lol</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</v-content>
+{% endblock %}
+{% block script_block %}
   <script>
     new Vue({
       el: '#app',
@@ -168,6 +140,7 @@
         }
       })
 </script>
+{% endblock %}
 <style>
   .item-card{
     margin: 10px 0 0 0 ;
@@ -184,7 +157,4 @@
     background-size: contain;
   }
 </style>
-  {% block script_block %}
-  {% endblock %}
-</body>
-</html>
+
