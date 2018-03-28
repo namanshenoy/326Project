@@ -238,20 +238,36 @@
                   <p>
                     {{ object.description }}
                   </p>
-                  <v-btn href="" @click="addToCart()">Add to Cart</v-btn>
+                  <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
+                  <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
+
                   <v-btn href="{{ object.source }}">See on Site</v-btn>
                 </div>
               </v-flex>
             </v-layout>
           </v-container>
+          <v-snackbar
+            timeout="2000"
+            top="true"
+            right="true"
+            v-model="snackbar"
+            :color="snackbarColor"
+          >
+            <span style="color:#eee">{? snackbarText ?}</span>
+            <v-btn flat color="white" @click.native="snackbar = false">Close</v-btn>
+          </v-snackbar>
         </v-content>
 {% endblock %}
 {% block script_block %}
   <script>
     new Vue({
+          delimiters: ['{?','?}'],
           el: '#app',
           data: function (){
             return {
+              snackbar: false,
+              snackbarText: '',
+              snackbarColor: 'white',
               hAndM: false,
               americanEagle: false,
               hollister: false,
@@ -263,6 +279,7 @@
               priceRange: 0,
               data_test: 'Hello World Test',
               drawer: true,
+              inCart: false,
               productId: {{ object.id }},
               items: [
                 { title: 'Home', icon: 'dashboard' },
@@ -274,6 +291,29 @@
             methods: {
               addToCart () {
                 console.log(this.productId)
+                this.inCart = true
+                body = {"products": [ this.productId ]}
+                var vueInstance = this
+                axios.put('/cart/add/', body).then(response => {
+                  this.snackbarText = 'Added item to cart'
+                  this.snackbarColor = 'green'
+                  this.snackbar = true
+                })
+              },
+              removeFromCart () {
+                console.log(this.productId)
+                this.inCart = false
+                body = {"products": [ this.productId ]}
+                axios.put('/cart/remove/', body).then(response => {
+                  this.snackbarText = 'Removed item from cart'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                })
+              }
+            },
+            computed: {
+              itemIsInCart () {
+                return this.inCart
               }
             }
           })

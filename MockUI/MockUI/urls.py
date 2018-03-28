@@ -21,12 +21,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'admin/', admin.site.urls),
-    url(r'home/', site_views.ClothingListView.as_view(), name='HomeView'),
-    url(r'product/(?P<product_id>\d+)', site_views.ClothingView.as_view(), name='ProductDetailView'),
-    url(r'^addToCart/(?P<id>\d+)$', APIViews.UpdateCart.as_view(), name='AddToCart'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^home/$', site_views.ClothingListView.as_view(), name='HomeView'),
+    url(r'^product/(?P<product_id>\d+)$', site_views.ClothingView.as_view(), name='ProductDetailView'),
+    url(r'^cart/$', site_views.cart, name='cart'),
+    url(r'^cart/add/$', APIViews.AddToCart.as_view(), name='AddToCart'),
+    url(r'^cart/remove/$', APIViews.RemoveFromCart.as_view(), name='RemoveFromCart'),
     url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
-    url(r'cart/', site_views.cart, name='cart'),
-    url(r'user/', site_views.user, name='user'),
-    url(r'contact/', site_views.contact, name='contact'),
+    url(r'^user/$', site_views.user, name='user'),
+    url(r'^contact/$', site_views.contact, name='contact'),
 ]
