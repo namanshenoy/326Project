@@ -1,5 +1,5 @@
 import os, random, string
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "326Project.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "MockUI.settings")
 
 PRODUCTNAMES = ['ranch', 'tubular socks', 'tshirt', 'yeezys']
 PRODUCTTYPES = ['socks', 'shoes', 'shirt', 'gloves', 'energy pizza']
@@ -10,9 +10,9 @@ STORES = ['American Eagle', 'Hollister', 'H and M']
 
 
 # your imports, e.g. Django models
-from 326Project.models import *
+from models import *
 
-main()
+def main():
 	AE = Store()
 	H = Store()
 	HM = Store()
@@ -35,7 +35,7 @@ main()
 		else:
 			HM.product += product
 
-	for i in range(0,25)
+	for i in range(0,25):
 		coupon = Coupon()
 		coupon.code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
 		coupon.description = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))

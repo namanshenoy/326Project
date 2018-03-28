@@ -48,6 +48,7 @@ class CartListView(generic.ListView):
     """
     Generic class-based detail view for a users cart.
     """
+    template_name = 'cart.html'
     model = Product
     paginate_by = 10
 

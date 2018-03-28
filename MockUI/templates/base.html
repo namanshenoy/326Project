@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <link href="{% static "css/style.css"%}" rel="stylesheet">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   {% block title_block %}{% endblock %}
 </head>
@@ -14,13 +16,13 @@
   <div id="app">
     <v-app>
       <v-toolbar app fixed flat clipped-left clipped-right color="teal lighten-2" dark>
-        <v-toolbar-title><v-icon>whatshot</v-icon>Teemo</v-toolbar-title>
+        <v-toolbar-title><v-btn flat href="{%url 'HomeView'%}" style="font-size:1.5em"><v-icon left>whatshot</v-icon>Teemo</v-btn></v-toolbar-title>
         <div style="width:20vw"></div>
         <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
         <div style="width:10vw"></div>
         <v-toolbar-items right>
           <v-btn flat href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
-          <v-btn flat href="{%url 'cart'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+          <v-btn flat href="{%url 'CartView'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
           <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
         </v-toolbar-items>
       </v-toolbar>

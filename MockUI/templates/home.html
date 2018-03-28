@@ -161,7 +161,7 @@
 	  <v-list-tile style="height:40vh">
 	    <v-list-tile-content style="height:40vh">
 	      <v-card style="width:100%;">
-	        <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+	        <v-card-media src="{% static 'images/jeans.jpg' %}"  contain height="30vh"></v-card-media>
 	        <v-card-title>
 	          Buy these jeanse!
 	        </v-card-title>
@@ -204,16 +204,16 @@
 	<v-container>
 	  <v-layout row wrap>
 	    {% for item in object_list %}
-	    <v-flex xs12 @click="productRoute('{{ item.id }}')">
+	    <v-flex xs12 @dblclick="productRoute('{{ item.id }}')">
 	      <v-card class="item-inner">
 	        <v-card-text style="height:10vh">
 	          <v-layout>
 	            <v-flex xs4 style="margin-left:-10%;">
-	              <div class="jeans-card"></div>
+	              <div class="jeans-card" style="background: url('{{ item.images.all.0.source }}'); background-position:center; background-repeat: no-repeat; background-size: contain;height: 100%"></div>
 	            </v-flex>
 	            <v-flex xs8>
 	              <h1>{{item.name}}</h1>
-	              <p>{{item.price}}</p>
+	              <p>${{item.price|floatformat:2 }}</p>
 	            </v-flex>
 	          </v-layout>
 	        </v-card-text>

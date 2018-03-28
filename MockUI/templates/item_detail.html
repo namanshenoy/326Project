@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}<title>{{product_name}}</title>{% endblock %}
 
 {% block content %}
@@ -174,7 +174,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static "images/jeans.jpg" %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these jeanse!
                   </v-card-title>
@@ -184,7 +184,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="/images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static "images/socks.jpg" %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -223,13 +223,18 @@
                   transition="fade-transition"
                   reverse-transition="fade-transition"
                 >
-                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$"></v-carousel-item>
-                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_ob?$PDP_78_Main$"></v-carousel-item>
-                  <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_f?$PDP_78_Main$"></v-carousel-item>
+                  {% for image in object.images.all %}
+                  <v-carousel-item src="{{ image.source }}"></v-carousel-item>
+                  {% endfor %}
+                  <!--
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_ob?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_f?$PDP_78_Main$"></v-carousel-item>
+                  -->
                 </v-carousel>
               </v-flex>
               <v-flex xs1>
-                <img src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$">
+                <img src="{{ object.images.all.0.source }}">
               </v-flex>
               <v-flex xs11>
                 <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
@@ -298,7 +303,7 @@
             methods: {
               addToCart () {
                 console.log(this.productId)
-                this.inCart = true
+                // this.inCart = true
                 body = {"products": [ this.productId ]}
                 var vueInstance = this
                 axios.put('/cart/add/', body).then(response => {
@@ -314,14 +319,14 @@
               },
               removeFromCart () {
                 console.log(this.productId)
-                this.inCart = false
+                // this.inCart = false
                 body = {"products": [ this.productId ]}
                 var vueInstance = this
                 axios.put('/cart/remove/', body).then(response => {
                   this.snackbarText = 'Removed item from cart'
                   this.snackbarColor = 'red'
                   this.snackbar = true
-                  
+
                   var vueInstance_nest = vueInstance
                   axios.get('/checkItem/' + vueInstance_nest.productId)
                   .then(response => {
