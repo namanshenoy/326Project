@@ -82,11 +82,11 @@
               <v-card-text style="height:10vh">
                 <v-layout>
                   <v-flex xs4 style="margin-left:-10%;">
-                    <div class="jeans-card"></div>
-                  </v-flex>
+                      <div class="jeans-card" style="background: url('{{ item.product.images.all.0.source }}'); background-position:center; background-repeat: no-repeat; background-size: contain;height: 100%"></div>
+                    </v-flex>
                   <v-flex xs8>
-                    <h1>{{item.name}}</h1>
-                    <p>{{item.price}}</p>
+                    <h1>{{item.product.name}}</h1>
+                    <p>{{item.product.price}}</p>
                   </v-flex>
                 </v-layout>
               </v-card-text>
