@@ -16,3 +16,19 @@ media
 
 
 # End of https://www.gitignore.io/api/django
+
+
+# Created by https://www.gitignore.io/api/visualstudiocode
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+*/.vscode/
+### Cloud 9 ###
+*c9*
+
+# End of https://www.gitignore.io/api/visualstudiocode

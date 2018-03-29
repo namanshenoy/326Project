@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>Contact Us</title>{% endblock %}
+{% block content %}
+  <v-navigation-drawer
+    clipped
+    right
+    width="250"
+    permanent
+    stateless
+    v-model="drawer"
+    floating
+    app
+  >
+    <v-list>
+      <v-list-tile  style="height:10vh">
+        <v-list-tile-content  style="height:10vh">
+          <v-card style="width:100%;">
+              <v-card-title>
+                <h1>Recommendations</h1>
+              </v-card-title>
+            </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+
+    <v-list two-line style="padding-top:10vh">
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these jeanse!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these swacks!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:40vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              Buy these swacks!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile style="height:40vh">
+        <v-list-tile-content style="height:50vh">
+          <v-card style="width:100%;">
+            <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
+            <v-card-title>
+              YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
+            </v-card-title>
+          </v-card>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </v-navigation-drawer>
+  <v-content>
+  <v-container fluid fill-height>
+    <v-layout justify-center align-center>
+      <v-flex text-xs-center>
+        <v-card class="elevation-0 transparent">
+            <v-card-title primary-title class="layout justify-center">
+              <div class="headline">Contact us</div>
+            </v-card-title>
+            <v-card-text>
+              Don't contact us, we won't respond.
+            </v-card-text>
+            <v-list class="layout justify-center">
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">phone</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>413-867-5309</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">place</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Amherst, MA-US</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon class="grey--text">email</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>hi@no.lol</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</v-content>
+{% endblock %}
+{% block script_block %}
+  <script>
+    new Vue({
+      el: '#app',
+      data: function (){
+        return {
+          hAndM: false,
+          americanEagle: false,
+          hollister: false,
+          clothingTypeDrawer: true,
+          genderDrawer: true,
+          sizeDrawer: true,
+          storesDrawer: true,
+          priceRange: 0,
+          data_test: 'Hello World Test',
+          drawer: true,
+          items: [
+            { title: 'Home', icon: 'dashboard' },
+            { title: 'About', icon: 'question_answer' }
+          ],
+          right: null
+          }
+        },
+        methods: {
+          productRoute (itemID) {
+            window.location = '/product/' + itemID
+          }
+        }
+      })
+</script>
+{% endblock %}
+<style>
+  .item-card{
+    margin: 10px 0 0 0 ;
+  }
+  .item-inner {
+    height: 300px;
+  }
+  .jeans-card {
+    width:100%;
+    height:100%;
+    background-image: url('/static/images/jeans.jpg');
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+</style>
+
