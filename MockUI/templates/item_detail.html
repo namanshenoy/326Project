@@ -275,7 +275,7 @@
               vueInstance.inCart = response.data.inCart
             })
           },
-          data: function (){
+          data: function () {
             return {
               snackbar: false,
               snackbarText: '',
@@ -328,10 +328,6 @@
                   this.snackbar = true
 
                   var vueInstance_nest = vueInstance
-                  axios.get('/checkItem/' + vueInstance_nest.productId)
-                  .then(response => {
-                    vueInstance_nest.inCart = response.data.inCart
-                  })
                 })
               }
             },

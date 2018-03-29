@@ -171,7 +171,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these jeanse!
                   </v-card-title>
@@ -181,7 +181,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -191,7 +191,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -201,7 +201,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:50vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="images/doctah.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
                   </v-card-title>
@@ -213,10 +213,10 @@
         <v-content  style="background:#ccc">
           <v-container>
             <v-layout row wrap>
-              {% for item in object_list %}
-              <v-flex xs12 @dblclick="productRoute('{{ item.id }}')" style="margin-top:10px;">
-                <v-card hover class="item-inner">
-                  <v-card-text style="height:10vh">
+              {% for item in cart.products.all %}
+              <v-flex xs12 style="margin-top:10px;">
+                <v-card hover  class="item-inner">
+                  <v-card-text>
                     <v-layout>
                       <v-flex xs4 style="margin-left:-10%;">
                         <div class="jeans-card" style="background: url('{{ item.images.all.0.source }}'); background-position:center; background-repeat: no-repeat; background-size: contain;height: 100%"></div>
@@ -224,11 +224,28 @@
                       <v-flex xs8>
                         <h2>{{item.name}}</h2>
                         <p>${{item.price|floatformat:2 }}</p>
+                        <v-btn color="normal" href="" @click="productRoute('{{ item.id }}')">Go to Item</v-btn>
+                        <v-btn color="error" href="" @click="removeFromCart({{item.id}})">Remove from Cart</v-btn>
                       </v-flex>
                     </v-layout>
                   </v-card-text>
                 </v-card>
               </v-flex>
+              {% empty %}
+              <v-flex xs12 style="margin-top:10px;">
+                  <v-card hover class="item-inner">
+                    <v-card-text>
+                      <v-layout>
+                        <v-flex xs4 style="margin-left:-10%;">
+                        </v-flex>
+                        <v-flex xs8>
+                          <h2> Looks like there are no items in cart!</h2>
+                          <p>Please go to our home page and add an item!</p>
+                        </v-flex>
+                      </v-layout>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
               {% endfor %}
               <v-flex xs4>
                 {% if page_obj.has_previous %}
@@ -240,12 +257,33 @@
               </v-flex>
             </v-layout>
           </v-container>
+          <v-snackbar
+            :timeout="2000"
+            :top="true"
+            :right="true"
+            v-model="snackbar"
+            :color="snackbarColor"
+          >
+            <span style="color:#eee">{? snackbarText ?}</span>
+            <v-btn flat color="white" @click.native="snackbar = false">Close</v-btn>
+          </v-snackbar>
         </v-content>
         {% endblock %}
         {% block script_block %}
     <script>
         new Vue({
           el: '#app',
+          delimiters: ['{?','?}'],
+          created () {
+            var url_string = window.location.href
+            var url = new URL(url_string)
+            var c = url.searchParams.get("q")
+            if (c === 'removed') {
+              this.snackbarText = 'Removed item from cart'
+              this.snackbarColor = 'red'
+              this.snackbar = true
+            }
+          },
           data: function (){
             return {
               hAndM: false,
@@ -259,6 +297,9 @@
               priceRange: 0,
               data_test: 'Hello World Test',
               drawer: true,
+              snackbar: false,
+              snackbarText: '',
+              snackbarColor: 'white',
               cart: [
                   {
                       name: ''
@@ -269,6 +310,24 @@
                 { title: 'About', icon: 'question_answer' }
               ],
               right: null
+              }
+            },
+            methods: {
+              productRoute (itemID) {
+                window.location = '/product/' + itemID
+              },
+              removeFromCart (itemId) {
+                console.log(this.productId)
+                // this.inCart = false
+                body = {"products": [ itemId ]}
+                var vueInstance = this
+                axios.put('/cart/remove/', body).then(response => {
+                  this.snackbarText = 'Removed item from cart'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+
+                  window.location = '/cart/?q=removed'
+                })
               }
             }
           })
