@@ -49,8 +49,13 @@ class CartListView(generic.ListView):
     Generic class-based detail view for a users cart.
     """
     template_name = 'cart.html'
-    model = Product
+    model = Cart
     paginate_by = 10
+
+def cart(request):
+    cart = UserInfo.objects.get(user=int(request.user.id)).cart
+    print(cart.products.all())
+    return render(request, 'cart.html', context={'cart':cart})
 
 
 class CouponListView(generic.ListView):
