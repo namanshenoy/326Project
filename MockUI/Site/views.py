@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Product, HistoryEntry, Cart, Store, Coupon
+from .models import Product, HistoryEntry, Cart, Store, Coupon, UserInfo
 from django.views import generic
 
 # Create your views here.
@@ -66,3 +66,18 @@ class CouponView(generic.DetailView):
     Generic class-based detail view for a coupons.
     """
     model = Coupon
+
+
+class HistoryListView(generic.ListView):
+    model = HistoryEntry
+
+
+class UserDetailView(generic.DetailView):
+    model = UserInfo
+    template_name = 'user_detail.html'
+    context_object_name = 'userinfo'
+
+    def get_object(self):
+        userinfo = get_object_or_404(UserInfo, user=self.request.user)
+        print(userinfo.history)
+        return userinfo

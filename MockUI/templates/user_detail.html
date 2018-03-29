@@ -72,13 +72,11 @@
       <v-layout justify-center align-center>
         <v-flex text-xs-center>
           <v-card class="elevation-0 transparent">
-              <v-card-text>
-                {{ UserInfo.user }}
-              </v-card-text>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-          {% for item in history_list %}
+        <h1>User History</h1> 
+          {% for item in userinfo.history.all %}
           <v-flex xs12 @click="productRoute('{{ item.id }}')">
             <v-card class="item-inner">
               <v-card-text style="height:10vh">

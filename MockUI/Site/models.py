@@ -26,7 +26,7 @@ class HistoryEntry(models.Model):
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.date_time
+        return str(self.date_time)
 
     class Meta:
         verbose_name = 'History Entry'
@@ -65,11 +65,11 @@ class Store(models.Model):
 
 class UserInfo(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    history = models.ForeignKey(HistoryEntry, on_delete=models.CASCADE)
+    history = models.ManyToManyField('HistoryEntry', blank=True, related_name="%(app_label)s_%(class)s_history")
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 
     class Meta:
         verbose_name = 'User Information'
