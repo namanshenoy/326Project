@@ -20,6 +20,10 @@ from Site import APIViews
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.generic import RedirectView
+
+from django.urls import path
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home/$', site_views.ClothingListView.as_view(), name='HomeView'),
@@ -31,4 +35,5 @@ urlpatterns = [
     url(r'^checkItem/(?P<product_id>\d+)$', APIViews.ItemInCartAPIView.as_view(), name='CjeckItemAPI'),
     url(r'^user/$', site_views.user, name='user'),
     url(r'^contact/$', site_views.contact, name='contact'),
+    path('', RedirectView.as_view(url='/home/')),
 ]

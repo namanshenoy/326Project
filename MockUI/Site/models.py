@@ -25,6 +25,9 @@ class HistoryEntry(models.Model):
     date_time = models.DateTimeField()
     product = models.ForeignKey('Product', blank=True, null=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.date_time
+
     class Meta:
         verbose_name = 'History Entry'
         verbose_name_plural = 'History Entries'
@@ -64,6 +67,9 @@ class UserInfo(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     history = models.ForeignKey(HistoryEntry, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user
 
     class Meta:
         verbose_name = 'User Information'
