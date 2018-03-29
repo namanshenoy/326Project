@@ -75,7 +75,7 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-        <h1>User History</h1> 
+        <h1>User History for {{ request.user }}</h1> 
           {% for item in userinfo.history.all %}
           <v-flex xs12 @click="productRoute('{{ item.id }}')">
             <v-card class="item-inner">
