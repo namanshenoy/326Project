@@ -44,9 +44,16 @@ class Product(models.Model):
     size_primary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     size_secondary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     images = models.ManyToManyField('Image', blank=True, related_name="%(app_label)s_%(class)s_images")
+    comments = models.ManyToManyField('Comment', blank=True, related_name="%(app_label)s_%(class)s_comments")
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    data = models.TextField()
+    date_time = models.DateTimeField(auto_now_add=True)
 
 
 class Image(models.Model):
