@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_COOKIE_NAME = "XCSRF-TOKEN"
+
 ROOT_URLCONF = 'MockUI.urls'
 
 TEMPLATES = [

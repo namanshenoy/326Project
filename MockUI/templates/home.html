@@ -234,6 +234,8 @@
  {% endblock %}
  {% block script_block %}
   <script>
+
+
     new Vue({
       el: '#app',
       data: function (){
@@ -244,7 +246,10 @@
           clothingTypeDrawer: true,
           genderDrawer: true,
           sizeDrawer: true,
-          storesDrawer: true,
+					storesDrawer: true,
+					loginModal: false,
+					username: '',
+					password: '',
           priceRange: 0,
           data_test: 'Hello World Test',
           drawer: true,
@@ -258,7 +263,24 @@
         methods: {
           productRoute (itemID) {
             window.location = '/product/' + itemID
-          }
+					},
+					submit () {
+						var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+						console.log(csrf.value)
+						//axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+						//axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+						axios.post('/ajaxLogin/', JSON.stringify({
+							username: this.username,
+							password: this.password
+						}),{
+							headers: {"X-CSRFToken": csrf.value }
+						})
+						.then(response=>{
+							if (response.data === 'fine') {
+								location.reload()
+							}
+						})
+					}
         }
       })
 </script>

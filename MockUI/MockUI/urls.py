@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 import Site.views as site_views
 from Site import APIViews
@@ -37,4 +37,6 @@ urlpatterns = [
     url(r'^user/$', site_views.UserDetailView.as_view(), name='user'),
     url(r'^contact/$', site_views.contact, name='contact'),
     path('', RedirectView.as_view(url='/home/')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^ajaxLogin/$', site_views.AjaxLogin, name='AjaxLogin')
 ]
