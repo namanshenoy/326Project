@@ -25,7 +25,7 @@
           <v-btn flat href="{%url 'CartView'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
           <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
         {% if user.is_authenticated %}
-          <v-btn flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
+          <v-btn href="{% url 'logout'%}?next={{request.path}}" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
         {% else %}
           <v-btn @click="loginModal=true" flat><v-icon left>lock_open</v-icon>Login</v-btn>
         {% endif %}
