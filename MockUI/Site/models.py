@@ -55,6 +55,9 @@ class Comment(models.Model):
     data = models.TextField()
     date_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.user) + " - " + str(self.data)
+
 
 class Image(models.Model):
     source = models.URLField(null=True)
