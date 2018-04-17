@@ -260,7 +260,7 @@
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
                             Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
                           </p>
-                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                          <h3 style="text-align:right;margin:10px;">USERNAME</h3>
                         </v-card-text>
                       </v-card>
                     </v-flex>
@@ -271,18 +271,23 @@
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
                             Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
                           </p>
-                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                          <h3 style="text-align:right;margin:10px;">USERNAME</h3>
                         </v-card-text>
                       </v-card>
                     </v-flex>
                     <v-flex xs12 style="margin:10px 0;">
                       <v-card>
+                        <v-card-title>
+                          <h2>New Comment</h2>
+                        </v-card-title>
                         <v-card-text>
-                          <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
-                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
-                          </p>
-                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                          <v-text-field
+                            name="comment"
+                            v-model="newComment"
+                            placeholder="Type in your new comment!"
+                            multi-line
+                          ></v-text-field>
+                          <v-btn @click="submitComment()">Submit</v-btn>
                         </v-card-text>
                       </v-card>
                     </v-flex>
@@ -334,6 +339,9 @@
               inCart: false,
               productId: {{ object.id }},
               loginModal: false,
+              username: '',
+              password: '',
+              newComment: null,
               items: [
                 { title: 'Home', icon: 'dashboard' },
                 { title: 'About', icon: 'question_answer' }
@@ -370,6 +378,52 @@
 
                   var vueInstance_nest = vueInstance
                 })
+              },
+              submit () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                console.log(csrf.value)
+                //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+                //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+                axios.post('/ajaxLogin/', JSON.stringify({
+                  username: this.username,
+                  password: this.password
+                }),{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                .then(response=>{
+                  if (response.data === 'fine') {
+                    location.reload()
+                  }
+                })
+              },
+              submitComment () {
+                console.log('Submiting new Comment')
+                var vueInstance = this
+                axios.put('/product/' + this.productId + '/comment/add/', {
+                  data: vueInstance.newComment
+                })
+                  .then(response => {
+                    if (response.status === 201) {
+                      console.log('Success!')
+                      vueInstance.getComments()
+                      this.snackbarText = 'Added your comment!'
+                      this.snackbarColor = 'green'
+                      this.snackbar = true
+                    } else {
+                      vueInstance.getComments()
+                      this.snackbarText = 'Some error occured'
+                      this.snackbarColor = 'red'
+                      this.snackbar = true
+                    }
+                  })
+              },
+              getComments () {
+                var vueInstance = this
+                axios.get('/comments/' + this.productId)
+                  .then(response => {
+                    console.log('Success!')
+                    this.commentArray = response.data
+                  })
               }
             },
             computed: {
