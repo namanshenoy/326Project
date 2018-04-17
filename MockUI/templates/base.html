@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
-  <link href="{% static "css/style.css"%}" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   {% block title_block %}{% endblock %}
@@ -21,11 +20,11 @@
         <v-toolbar-items right>
         {% if user.is_authenticated %}
           <v-btn flat href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
-        {% endif %}
           <v-btn flat href="{%url 'CartView'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+        {% endif %}
           <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
         {% if user.is_authenticated %}
-          <v-btn href="{% url 'logout'%}?next={{request.path}}" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
+          <v-btn href="{% url 'logout'%}?next=/home" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
         {% else %}
           <v-btn @click="loginModal=true" flat><v-icon left>lock_open</v-icon>Login</v-btn>
         {% endif %}
@@ -38,18 +37,22 @@
               Login
             </v-card-title>
             <v-card-text>
+              <v-form>
                 {% csrf_token %}
                 <v-text-field
                   label="Username"
                   v-model="username"
+                  autocomplete="username"
                   required
                 ></v-text-field>
                 <v-text-field
+                  autocomplete="on"
                   label="Password"
                   v-model="password"
                   type="password"
                   required
                 ></v-text-field>
+              </v-form>
             </v-card-text>
             <v-card-actions>
               <v-btn color="primary" flat @click.stop="loginModal=false">Close</v-btn>

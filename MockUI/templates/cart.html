@@ -287,8 +287,11 @@
           },
           data: function (){
             return {
+              username: '',
+              password: '',
               hAndM: false,
               americanEagle: false,
+              loginModal: false,
               hollister: false,
               clothingTypeDrawer: true,
               genderDrawer: true,
@@ -328,6 +331,23 @@
                   this.snackbar = true
 
                   window.location = '/cart/?q=removed'
+                })
+              },
+              submit () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                console.log(csrf.value)
+                //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+                //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+                axios.post('/ajaxLogin/', JSON.stringify({
+                  username: this.username,
+                  password: this.password
+                }),{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                .then(response=>{
+                  if (response.data === 'fine') {
+                    location.reload()
+                  }
                 })
               }
             }

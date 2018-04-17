@@ -28,7 +28,7 @@
         <v-list-tile style="height:40vh">
           <v-list-tile-content style="height:40vh">
             <v-card style="width:100%;">
-              <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+              <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
               <v-card-title>
                 Buy these jeanse!
               </v-card-title>
@@ -122,6 +122,9 @@
         priceRange: 0,
         data_test: 'Hello World Test',
         drawer: true,
+        loginModal: false,
+        username: '',
+        password: '',
         items: [
           { title: 'Home', icon: 'dashboard' },
           { title: 'About', icon: 'question_answer' }
@@ -132,6 +135,23 @@
       methods: {
         productRoute (itemID) {
           window.location = '/product/' + itemID
+        },
+        submit () {
+          var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+          console.log(csrf.value)
+          //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+          //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+          axios.post('/ajaxLogin/', JSON.stringify({
+            username: this.username,
+            password: this.password
+          }),{
+            headers: {"X-CSRFToken": csrf.value }
+          })
+          .then(response=>{
+            if (response.data === 'fine') {
+              location.reload()
+            }
+          })
         }
       }
     })
