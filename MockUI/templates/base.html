@@ -27,6 +27,7 @@
           <v-btn href="{% url 'logout'%}?next=/home" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
         {% else %}
           <v-btn @click="loginModal=true" flat><v-icon left>lock_open</v-icon>Login</v-btn>
+          <v-btn href="{%url 'signup'%}" flat><v-icon left>person_add</v-icon>Signup</v-btn>
         {% endif %}
         </v-toolbar-items>
       </v-toolbar>
