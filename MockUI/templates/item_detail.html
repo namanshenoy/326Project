@@ -237,16 +237,56 @@
                 <img src="{{ object.images.all.0.source }}">
               </v-flex>
               <v-flex xs11>
-                <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
-                <div style="position:absolute;z-index:99;margin-top:11vh; max-height:50vh;width:40vw;padding-left:10%;">
-                  <h1>{{ object.name }}</h1>
-                  <p>
-                    {{ object.description }}
-                  </p>
-                  <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
-                  <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
+                <!-- div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div -->
+                <div style="position:relative;padding:5% 10%;z-index:1;width:93%;margin-top:11vh; max-height:50vh;padding-left:10%;background: rgba(255,255,255,0.6);">
+                  <div>
+                    <h1>{{ object.name }}</h1>
+                    <p>
+                      {{ object.description }}
+                    </p>
+                    <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
+                    <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
 
-                  <v-btn href="{{ object.source }}">See on Site</v-btn>
+                    <v-btn href="{{ object.source }}">See on Site</v-btn>
+                  </div>  
+                </div>
+                <div style="border:2px solid green;margin-top:10%; position:relative; width:50vw; z-index:0;background: rgba(255,255,255,0.6)">
+                  <v-layout row wrap pa-3>
+                    <v-flex x12 ><h1 style="padding-left:15px">Comments</h1></v-flex>
+                    <v-flex xs12 style="margin:10px 0;">
+                      <v-card>
+                        <v-card-text>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
+                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
+                          </p>
+                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs12 style="margin:10px 0;">
+                      <v-card>
+                        <v-card-text>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
+                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
+                          </p>
+                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs12 style="margin:10px 0;">
+                      <v-card>
+                        <v-card-text>
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
+                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
+                          </p>
+                          <h2 style="text-align:right;margin:10px;">USERNAME</h2>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
                 </div>
               </v-flex>
             </v-layout>
@@ -340,8 +380,12 @@
           })
    </script>
 {% endblock %}
-<style>
-      .item-card{
+<style scoped>
+      .item-card {
         margin: 10px 0 0 0 ;
+      }
+      .mt_5 {
+        margin: 5px 0 5px 0 !important;
+        background-color:blue;
       }
 </style>
