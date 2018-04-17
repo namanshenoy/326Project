@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 class UserInfoSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'username')
 
 class CommentInfoSerializer(ModelSerializer):
     user = UserInfoSerializer(read_only=True, many=False)
