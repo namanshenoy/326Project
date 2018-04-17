@@ -174,7 +174,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="{% static "images/jeans.jpg" %}" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these jeanse!
                   </v-card-title>
@@ -184,7 +184,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="{% static "images/socks.jpg" %}" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -194,7 +194,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="static/images/socks.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -204,7 +204,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:50vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="static/images/doctah.jpg" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
                   </v-card-title>
@@ -237,16 +237,52 @@
                 <img src="{{ object.images.all.0.source }}">
               </v-flex>
               <v-flex xs11>
-                <div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div>
-                <div style="position:absolute;z-index:99;margin-top:11vh; max-height:50vh;width:40vw;padding-left:10%;">
-                  <h1>{{ object.name }}</h1>
-                  <p>
-                    {{ object.description }}
-                  </p>
-                  <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
-                  <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
-
-                  <v-btn href="{{ object.source }}">See on Site</v-btn>
+                <!-- div style="position:absolute; margin-top:10vh;height: 55vh;width:50vw; z-index:0;background: rgba(255,255,255,0.6)"></div -->
+                <div style="position:relative;padding:5% 10%;z-index:1;width:93%;margin-top:11vh; max-height:50vh;padding-left:10%;background: rgba(255,255,255,0.6);">
+                  <div>
+                    <h1>{{ object.name }}</h1>
+                    <p>
+                      {{ object.description }}
+                    </p>
+                    {% if user.is_authenticated %}
+                    <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
+                    <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
+                    {% endif %}
+                    <v-btn href="{{ object.source }}">See on Site</v-btn>
+                  </div>  
+                </div>
+                <div style="border:2px solid green;margin-top:10%; position:relative; width:50vw; z-index:0;background: rgba(255,255,255,0.6)">
+                  <v-layout row wrap pa-3>
+                    <v-flex x12 ><h1 style="padding-left:15px">Comments</h1></v-flex>
+                    <template v-for="comment in commentArray">
+                      <v-flex xs12 style="margin:10px 0;" :key="comment.id">
+                        <v-card>
+                          <v-card-text>
+                            <p>
+                              {? comment.data ?}
+                            </p>
+                            <h3 style="text-align:right;margin:10px;">{? comment.user.username ?}</h3>
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                    </template>
+                    <v-flex xs12 style="margin:10px 0;">
+                      <v-card>
+                        <v-card-title>
+                          <h2>New Comment</h2>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-text-field
+                            name="comment"
+                            v-model="newComment"
+                            placeholder="Type in your new comment!"
+                            multi-line
+                          ></v-text-field>
+                          <v-btn @click="submitComment()">Submit</v-btn>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
                 </div>
               </v-flex>
             </v-layout>
@@ -269,11 +305,16 @@
           delimiters: ['{?','?}'],
           el: '#app',
           created () {
+            console.log('Authenticated:')
+            console.log('{{ user.is_authenticated }}')
             var vueInstance = this
-            axios.get('/checkItem/' + vueInstance.productId)
-            .then(response => {
-              vueInstance.inCart = response.data.inCart
-            })
+            if ('{{ user.is_authenticated }}' === 'True') {
+              axios.get('/checkItem/' + vueInstance.productId)
+              .then(response => {
+                vueInstance.inCart = response.data.inCart
+              })
+            }
+            this.getComments()
           },
           data: function () {
             return {
@@ -293,10 +334,15 @@
               drawer: true,
               inCart: false,
               productId: {{ object.id }},
+              loginModal: false,
+              username: '',
+              password: '',
+              newComment: null,
               items: [
                 { title: 'Home', icon: 'dashboard' },
                 { title: 'About', icon: 'question_answer' }
               ],
+              commentArray: [],
               right: null
               }
             },
@@ -306,7 +352,10 @@
                 // this.inCart = true
                 body = {"products": [ this.productId ]}
                 var vueInstance = this
-                axios.put('/cart/add/', body).then(response => {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                axios.put('/cart/add/', body,{
+                  headers: {"X-CSRFToken": csrf.value }
+                }).then(response => {
                   this.snackbarText = 'Added item to cart'
                   this.snackbarColor = 'green'
                   this.snackbar = true
@@ -321,14 +370,83 @@
                 console.log(this.productId)
                 // this.inCart = false
                 body = {"products": [ this.productId ]}
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
                 var vueInstance = this
-                axios.put('/cart/remove/', body).then(response => {
-                  this.snackbarText = 'Removed item from cart'
+                if ('{{ user.is_authenticated }}' === 'True') {
+                  axios.put('/cart/remove/', body,{
+                    headers: {"X-CSRFToken": csrf.value }
+                  }).then(response => {
+                    this.snackbarText = 'Removed item from cart'
+                    this.snackbarColor = 'red'
+                    this.snackbar = true
+
+                    var vueInstance_nest = vueInstance
+                  })
+                } else {
+                  this.snackbarText = 'You must login to remove item from a cart!'
                   this.snackbarColor = 'red'
                   this.snackbar = true
-
-                  var vueInstance_nest = vueInstance
+                  this.loginModal = true
+                  return
+                }
+              },
+              submit () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                console.log(csrf.value)
+                //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+                //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+                axios.post('/ajaxLogin/', JSON.stringify({
+                  username: this.username,
+                  password: this.password
+                }),{
+                  headers: {"X-CSRFToken": csrf.value }
                 })
+                .then(response=>{
+                  if (response.data === 'fine') {
+                    location.reload()
+                  }
+                })
+              },
+              submitComment () {
+                console.log('Submiting new Comment')
+                if ('{{ user.is_authenticated }}' === 'False') {
+                  this.snackbarText = 'You must login to submit a comment!'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  this.loginModal = true
+                  return
+                }
+                var vueInstance = this
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                axios.put('/product/' + this.productId + '/comment/add/', {
+                  data: vueInstance.newComment
+                },{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                  .then(response => {
+                    if (response.status === 201) {
+                      console.log('Success!')
+                      vueInstance.getComments()
+                      this.snackbarText = 'Added your comment!'
+                      this.snackbarColor = 'green'
+                      this.snackbar = true
+                      this.newC = ''
+                      console.log('AUTHENTICATION')
+                    } else {
+                      vueInstance.getComments()
+                      this.snackbarText = 'Some error occured'
+                      this.snackbarColor = 'red'
+                      this.snackbar = true
+                    }
+                  })
+              },
+              getComments () {
+                var vueInstance = this
+                axios.get('/comments/' + this.productId)
+                  .then(response => {
+                    console.log('Success!')
+                    this.commentArray = response.data
+                  })
               }
             },
             computed: {
@@ -339,8 +457,12 @@
           })
    </script>
 {% endblock %}
-<style>
-      .item-card{
+<style scoped>
+      .item-card {
         margin: 10px 0 0 0 ;
+      }
+      .mt_5 {
+        margin: 5px 0 5px 0 !important;
+        background-color:blue;
       }
 </style>

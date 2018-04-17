@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
-  <link href="{% static "css/style.css"%}" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   {% block title_block %}{% endblock %}
@@ -17,22 +16,57 @@
     <v-app>
       <v-toolbar app fixed flat clipped-left clipped-right color="teal lighten-2" dark>
         <v-toolbar-title><v-btn flat href="{%url 'HomeView'%}" style="font-size:1.5em"><v-icon left>whatshot</v-icon>Teemo</v-btn></v-toolbar-title>
-        <div style="width:20vw"></div>
-        <v-text-field append-icon="search" label="Search" hide-details single-line style="width:40vw"></v-text-field>
-        <div style="width:10vw"></div>
+        <v-spacer></v-spacer>
         <v-toolbar-items right>
+        {% if user.is_authenticated %}
           <v-btn flat href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
           <v-btn flat href="{%url 'CartView'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+        {% endif %}
           <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
+        {% if user.is_authenticated %}
+          <v-btn href="{% url 'logout'%}?next=/home" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>
+        {% else %}
+          <v-btn @click="loginModal=true" flat><v-icon left>lock_open</v-icon>Login</v-btn>
+        {% endif %}
         </v-toolbar-items>
       </v-toolbar>
       {% block content %}{% endblock %}
+      <v-dialog v-model="loginModal" max-width="500px">
+          <v-card>
+            <v-card-title>
+              Login
+            </v-card-title>
+            <v-card-text>
+              <v-form>
+                {% csrf_token %}
+                <v-text-field
+                  label="Username"
+                  v-model="username"
+                  autocomplete="username"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  autocomplete="on"
+                  label="Password"
+                  v-model="password"
+                  type="password"
+                  required
+                ></v-text-field>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" flat @click.stop="loginModal=false">Close</v-btn>
+              <v-btn color="primary" flat @click="submit">Submit</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
     </v-app>
   </div>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js" type="text/javascript">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.5.1/qs.js" type="text/javascript"></script>
 
   </script>
   {% block script_block %}

@@ -2,6 +2,21 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import datetime
+
+
+# extend the User table
+class CustomUser(User):
+    class Meta:
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        # do anything you need before saving
+        super(CustomUser, self).save(*args, **kwargs)
+        # do anything you need after saving
+
 
 class Cart(models.Model):
     date_time = models.DateTimeField()
@@ -44,9 +59,19 @@ class Product(models.Model):
     size_primary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     size_secondary = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     images = models.ManyToManyField('Image', blank=True, related_name="%(app_label)s_%(class)s_images")
+    comments = models.ManyToManyField('Comment', blank=True, related_name="%(app_label)s_%(class)s_comments")
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    data = models.TextField()
+    date_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.user) + " - " + str(self.data)
 
 
 class Image(models.Model):
@@ -74,3 +99,10 @@ class UserInfo(models.Model):
     class Meta:
         verbose_name = 'User Information'
         verbose_name_plural = 'User Information'
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        cart = Cart.objects.create(date_time=datetime.datetime.now())
+        print(cart)
+        profile, new = UserInfo.objects.get_or_create(user=instance, cart=cart)

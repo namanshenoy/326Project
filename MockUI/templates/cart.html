@@ -191,7 +191,7 @@
             <v-list-tile style="height:40vh">
               <v-list-tile-content style="height:40vh">
                 <v-card style="width:100%;">
-                  <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
                   <v-card-title>
                     Buy these swacks!
                   </v-card-title>
@@ -274,6 +274,7 @@
         new Vue({
           el: '#app',
           delimiters: ['{?','?}'],
+          loginModal: false,
           created () {
             var url_string = window.location.href
             var url = new URL(url_string)
@@ -286,8 +287,11 @@
           },
           data: function (){
             return {
+              username: '',
+              password: '',
               hAndM: false,
               americanEagle: false,
+              loginModal: false,
               hollister: false,
               clothingTypeDrawer: true,
               genderDrawer: true,
@@ -321,12 +325,32 @@
                 // this.inCart = false
                 body = {"products": [ itemId ]}
                 var vueInstance = this
-                axios.put('/cart/remove/', body).then(response => {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                axios.put('/cart/remove/', body, {
+                  headers: {"X-CSRFToken": csrf.value }
+                }).then(response => {
                   this.snackbarText = 'Removed item from cart'
                   this.snackbarColor = 'red'
                   this.snackbar = true
 
                   window.location = '/cart/?q=removed'
+                })
+              },
+              submit () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                console.log(csrf.value)
+                //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+                //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+                axios.post('/ajaxLogin/', JSON.stringify({
+                  username: this.username,
+                  password: this.password
+                }),{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                .then(response=>{
+                  if (response.data === 'fine') {
+                    location.reload()
+                  }
                 })
               }
             }
