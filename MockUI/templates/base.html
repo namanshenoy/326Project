@@ -21,8 +21,8 @@
         <v-toolbar-items right>
         {% if user.is_authenticated %}
           <v-btn flat href="{%url 'user'%}"><v-icon left>account_circle</v-icon>User</v-btn>
-        {% endif %}
           <v-btn flat href="{%url 'CartView'%}"><v-icon left>shopping_basket</v-icon>Cart</v-btn>
+        {% endif %}
           <v-btn flat href="{%url 'contact'%}"><v-icon left>perm_phone_msg</v-icon>Contact</v-btn>
         {% if user.is_authenticated %}
           <v-btn href="{% url 'logout'%}?next={{request.path}}" flat><v-icon left>lock_outline</v-icon>Logout</v-btn>

@@ -28,7 +28,7 @@
         <v-list-tile style="height:40vh">
           <v-list-tile-content style="height:40vh">
             <v-card style="width:100%;">
-              <v-card-media src="images/jeans.jpg" contain height="30vh"></v-card-media>
+              <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
               <v-card-title>
                 Buy these jeanse!
               </v-card-title>
@@ -75,7 +75,12 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-        <h1>User History for {{ request.user }}</h1> 
+        <v-flex xs12>
+            <h1>User Information for {{ request.user }}</h1> <br>
+            <p>First Name: {{request.user.first_name}}</p>
+            <p>Last Name: {{request.user.last_name}}</p>
+        </v-flex>
+
           {% for item in userinfo.history.all %}
           <v-flex xs12 @click="productRoute('{{ item.id }}')">
             <v-card class="item-inner">
