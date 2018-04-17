@@ -244,9 +244,10 @@
                     <p>
                       {{ object.description }}
                     </p>
+                    {% if user.is_authenticated %}
                     <v-btn color="error" v-if="itemIsInCart" href="" @click="removeFromCart()">Remove from Cart</v-btn>
                     <v-btn href="" v-else @click="addToCart()">Add to Cart</v-btn>
-
+                    {% endif %}
                     <v-btn href="{{ object.source }}">See on Site</v-btn>
                   </div>  
                 </div>
@@ -304,11 +305,15 @@
           delimiters: ['{?','?}'],
           el: '#app',
           created () {
+            console.log('Authenticated:')
+            console.log('{{ user.is_authenticated }}')
             var vueInstance = this
-            axios.get('/checkItem/' + vueInstance.productId)
-            .then(response => {
-              vueInstance.inCart = response.data.inCart
-            })
+            if ('{{ user.is_authenticated }}' === 'True') {
+              axios.get('/checkItem/' + vueInstance.productId)
+              .then(response => {
+                vueInstance.inCart = response.data.inCart
+              })
+            }
             this.getComments()
           },
           data: function () {
@@ -347,6 +352,7 @@
                 // this.inCart = true
                 body = {"products": [ this.productId ]}
                 var vueInstance = this
+
                 axios.put('/cart/add/', body).then(response => {
                   this.snackbarText = 'Added item to cart'
                   this.snackbarColor = 'green'
@@ -363,15 +369,30 @@
                 // this.inCart = false
                 body = {"products": [ this.productId ]}
                 var vueInstance = this
-                axios.put('/cart/remove/', body).then(response => {
-                  this.snackbarText = 'Removed item from cart'
+                if ('{{ user.is_authenticated }}' === 'True') {
+                  axios.put('/cart/remove/', body).then(response => {
+                    this.snackbarText = 'Removed item from cart'
+                    this.snackbarColor = 'red'
+                    this.snackbar = true
+
+                    var vueInstance_nest = vueInstance
+                  })
+                } else {
+                  this.snackbarText = 'You must login to remove item from a cart!'
                   this.snackbarColor = 'red'
                   this.snackbar = true
-
-                  var vueInstance_nest = vueInstance
-                })
+                  this.loginModal = true
+                  return
+                }
               },
               submit () {
+                if ('{{ user.is_authenticated }}' === 'False') {
+                  this.snackbarText = 'You must login to add to your cart!'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  this.loginModal = true
+                  return
+                }
                 var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
                 console.log(csrf.value)
                 //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
@@ -389,6 +410,7 @@
                 })
               },
               submitComment () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
                 console.log('Submiting new Comment')
                 if ('{{ user.is_authenticated }}' === 'False') {
                   this.snackbarText = 'You must login to submit a comment!'
@@ -400,6 +422,8 @@
                 var vueInstance = this
                 axios.put('/product/' + this.productId + '/comment/add/', {
                   data: vueInstance.newComment
+                },{
+                  headers: {"X-CSRFToken": csrf.value }
                 })
                   .then(response => {
                     if (response.status === 201) {
