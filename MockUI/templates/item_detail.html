@@ -253,28 +253,18 @@
                 <div style="border:2px solid green;margin-top:10%; position:relative; width:50vw; z-index:0;background: rgba(255,255,255,0.6)">
                   <v-layout row wrap pa-3>
                     <v-flex x12 ><h1 style="padding-left:15px">Comments</h1></v-flex>
-                    <v-flex xs12 style="margin:10px 0;">
-                      <v-card>
-                        <v-card-text>
-                          <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
-                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
-                          </p>
-                          <h3 style="text-align:right;margin:10px;">USERNAME</h3>
-                        </v-card-text>
-                      </v-card>
-                    </v-flex>
-                    <v-flex xs12 style="margin:10px 0;">
-                      <v-card>
-                        <v-card-text>
-                          <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quam quia nesciunt est doloribus quibusdam velit minus. 
-                            Provident animi odit accusantium ipsa excepturi repellendus natus, eius porro facere alias quo a aspernatur. 
-                          </p>
-                          <h3 style="text-align:right;margin:10px;">USERNAME</h3>
-                        </v-card-text>
-                      </v-card>
-                    </v-flex>
+                    <template v-for="comment in commentArray">
+                      <v-flex xs12 style="margin:10px 0;" :key="comment.id">
+                        <v-card>
+                          <v-card-text>
+                            <p>
+                              {? comment.data ?}
+                            </p>
+                            <h3 style="text-align:right;margin:10px;">{? comment.user.username ?}</h3>
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                    </template>
                     <v-flex xs12 style="margin:10px 0;">
                       <v-card>
                         <v-card-title>
@@ -319,6 +309,7 @@
             .then(response => {
               vueInstance.inCart = response.data.inCart
             })
+            this.getComments()
           },
           data: function () {
             return {
@@ -346,6 +337,7 @@
                 { title: 'Home', icon: 'dashboard' },
                 { title: 'About', icon: 'question_answer' }
               ],
+              commentArray: [],
               right: null
               }
             },
@@ -398,6 +390,13 @@
               },
               submitComment () {
                 console.log('Submiting new Comment')
+                if ('{{ user.is_authenticated }}' === 'False') {
+                  this.snackbarText = 'You must login to submit a comment!'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  this.loginModal = true
+                  return
+                }
                 var vueInstance = this
                 axios.put('/product/' + this.productId + '/comment/add/', {
                   data: vueInstance.newComment
@@ -409,6 +408,8 @@
                       this.snackbarText = 'Added your comment!'
                       this.snackbarColor = 'green'
                       this.snackbar = true
+                      this.comment = ''
+                      console.log('AUTHENTICATION')
                     } else {
                       vueInstance.getComments()
                       this.snackbarText = 'Some error occured'
