@@ -44,6 +44,15 @@ class addCommentToProduct(UpdateAPIView):
         return Response(status=HTTP_201_CREATED)
         #return super(addCommentToProduct, self).update(request, *args, **kwargs)
 
+class CommentsFromProduct(ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Comment.objects.all()
+    serializer_class = CommentInfoSerializer
+
+    def get_queryset(self):
+        product = get_object_or_404(Product, id=int(self.kwargs['product_id']))
+        return product.comments
+
 class UpdateCart(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Cart.objects.all()

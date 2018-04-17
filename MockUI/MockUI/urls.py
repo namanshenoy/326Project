@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^product/(?P<product_id>\d+)$', site_views.ClothingView.as_view(), name='ProductDetailView'),
     # url(r'^cart/$', site_views.cart, name='cart'),
     url(r'^product/(?P<id>\d+)/comment/add/$', APIViews.addCommentToProduct.as_view(), name='AddCommentView'),
+    url(r'^comments/(?P<product_id>\d+)$', APIViews.CommentsFromProduct.as_view(), name='CommentsFromProduct'),
     url(r'^cart/$', site_views.cart, name='CartView'),
     url(r'^cart/add/$', APIViews.AddToCart.as_view(), name='AddToCart'),
     url(r'^cart/remove/$', APIViews.RemoveFromCart.as_view(), name='RemoveFromCart'),
