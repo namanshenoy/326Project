@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Product, HistoryEntry, Cart, Store, Coupon, UserInfo
 from django.views import generic
 from django.contrib.auth import authenticate, login
 import json
+from django.contrib.auth.forms import UserCreationForm
+
 
 # Create your views here.
 def home(request):
@@ -109,3 +111,17 @@ def AjaxLogin(request):
             return HttpResponse('bad')
     else:
         return HttpResponse('bad')
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('HomeView')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})

@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^checkItem/(?P<product_id>\d+)$', APIViews.ItemInCartAPIView.as_view(), name='CheckItemAPI'),
     url(r'^user/$', site_views.UserDetailView.as_view(), name='user'),
     url(r'^contact/$', site_views.contact, name='contact'),
+    url(r'^signup/$', site_views.signup, name='signup'),
     path('', RedirectView.as_view(url='/home/')),
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^ajaxLogin/$', site_views.AjaxLogin, name='AjaxLogin')
