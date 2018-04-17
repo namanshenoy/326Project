@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_201_CREATED
@@ -26,6 +26,32 @@ from .serializers import *
 
 from django.contrib.auth import get_user_model
 from .models import *
+
+class addCommentToProduct(UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Product.objects.all()
+    serializer_class = CommentInfoSerializer
+    lookup_field = 'id'
+
+    def update(self, request, *args, **kwargs):
+        data = request.data
+        #serializer = self.get_serializer(data=data)
+        product = get_object_or_404(Product, id=int(kwargs['id']))
+        comment = Comment(user=request.user, data=data['data'])
+        comment.save()
+        product.comments.add(comment)
+        product.save()
+        return Response(status=HTTP_201_CREATED)
+        #return super(addCommentToProduct, self).update(request, *args, **kwargs)
+
+class CommentsFromProduct(ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Comment.objects.all()
+    serializer_class = CommentInfoSerializer
+
+    def get_queryset(self):
+        product = get_object_or_404(Product, id=int(self.kwargs['product_id']))
+        return product.comments
 
 class UpdateCart(UpdateAPIView):
     permission_classes = [IsAuthenticated]
