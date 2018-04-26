@@ -125,3 +125,11 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+def cloth_picker(request, id1, id2):
+    if request.method == 'GET':
+        product1 = Product.objects.get(id=id1)
+        product2 = Product.objects.get(id=id2)
+    else:
+        form = UserCreationForm()
+    return render(request, 'cloth_picker.html', {'p1': product1, 'p2': product2})

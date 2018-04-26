@@ -1,0 +1,421 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>{{product_name}}</title>{% endblock %}
+
+{% block content %}
+
+ <v-content>
+ 	<v-navigation-drawer
+          clipped
+          permanent
+          width="250"
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list expand dense>
+            <v-list-group v-model="storesDrawer">
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Stores
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="H and M"
+                    v-model="hAndM"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Hollister"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="American Eagle"
+                    v-model="americanEagle"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group  v-model="clothingTypeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                   Clothing Type
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Pants"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shirts"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Shoes"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Socks"
+                    v-model="socksType"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+
+            <v-list-group v-model="sizeDrawer">
+              <v-list-tile slot=activator>
+                <v-list-tile-content>
+                    Size
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                  <v-list-tile-content>
+                    <v-checkbox
+                      label="Extra Small"
+                      v-model="hollister"
+                    ></v-checkbox>
+                  </v-list-tile-content>
+                </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Small"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Medium"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-checkbox
+                    label="Extra Large"
+                    v-model="hollister"
+                  ></v-checkbox>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group>
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  Price Range
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-slider v-model="priceRange"  step="10"></v-slider>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+
+          </v-list>
+  </v-navigation-drawer>
+        <v-navigation-drawer
+          clipped
+          right
+          width="250"
+          permanent
+          stateless
+          v-model="drawer"
+          floating
+          app
+        >
+          <v-list>
+            <v-list-tile  style="height:10vh">
+              <v-list-tile-content  style="height:10vh">
+                <v-card style="width:100%;">
+                    <v-card-title>
+                      <h1>Recommendations</h1>
+                    </v-card-title>
+                  </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+
+          <v-list two-line style="padding-top:10vh">
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="{% static 'images/jeans.jpg' %}" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these jeanse!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:40vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="{% static 'images/socks.jpg' %}" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    Buy these swacks!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile style="height:40vh">
+              <v-list-tile-content style="height:50vh">
+                <v-card style="width:100%;">
+                  <v-card-media src="{% static 'images/doctah.jpg' %}" contain height="30vh"></v-card-media>
+                  <v-card-title>
+                    YOU WON'T BELIEVE WHAT UHS DOES WITH THEIR HAMSTERS!!!!
+                  </v-card-title>
+                </v-card>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+          <v-container pa-0>
+            <v-layout row wrap>
+              <v-flex xs12>
+                <v-carousel
+                  :cycle="false"
+                  transition="fade-transition"
+                  reverse-transition="fade-transition"
+                >
+                  {% for image in p1.images.all %}
+                  <v-carousel-item src="{{ image.source }}"></v-carousel-item>
+                  {% endfor %}
+                  <!--
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_ob?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_f?$PDP_78_Main$"></v-carousel-item>
+                  -->
+                </v-carousel>
+              </v-flex>
+              <v-flex xs12>
+                <v-carousel
+                  :cycle="false"
+                  transition="fade-transition"
+                  reverse-transition="fade-transition"
+                >
+                  {% for image in p2.images.all %}
+                  <v-carousel-item src="{{ image.source }}"></v-carousel-item>
+                  {% endfor %}
+                  <!--
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_os?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_ob?$PDP_78_Main$"></v-carousel-item>
+                    <v-carousel-item src="https://s7d2.scene7.com/is/image/aeo/0438_1140_537_f?$PDP_78_Main$"></v-carousel-item>
+                  -->
+                </v-carousel>
+              </v-flex>
+
+            </v-layout>
+          </v-container>
+          <v-snackbar
+            :timeout="2000"
+            :top="true"
+            :right="true"
+            v-model="snackbar"
+            :color="snackbarColor"
+          >
+            <span style="color:#eee">{? snackbarText ?}</span>
+            <v-btn flat color="white" @click.native="snackbar = false">Close</v-btn>
+          </v-snackbar>
+        </v-content>
+{% endblock %}
+{% block script_block %}
+  <script>
+    new Vue({
+          delimiters: ['{?','?}'],
+          el: '#app',
+          created () {
+          },
+          data: function () {
+            return {
+              snackbar: false,
+              snackbarText: '',
+              snackbarColor: 'white',
+              hAndM: false,
+              americanEagle: false,
+              hollister: false,
+              clothingTypeDrawer: true,
+              genderDrawer: true,
+              sizeDrawer: true,
+              storesDrawer: true,
+              socksType: false,
+              priceRange: 0,
+              data_test: 'Hello World Test',
+              drawer: true,
+              inCart: false,
+              productId: {{ p1.id }},
+              loginModal: false,
+              username: '',
+              password: '',
+              newComment: null,
+              items: [
+                { title: 'Home', icon: 'dashboard' },
+                { title: 'About', icon: 'question_answer' }
+              ],
+              commentArray: [],
+              right: null
+              }
+            },
+            methods: {
+              addToCart () {
+                console.log(this.productId)
+                // this.inCart = true
+                body = {"products": [ this.productId ]}
+                var vueInstance = this
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                axios.put('/cart/add/', body,{
+                  headers: {"X-CSRFToken": csrf.value }
+                }).then(response => {
+                  this.snackbarText = 'Added item to cart'
+                  this.snackbarColor = 'green'
+                  this.snackbar = true
+                  var vueInstance_nest = vueInstance
+                  axios.get('/checkItem/' + vueInstance.productId)
+                  .then(response => {
+                    vueInstance_nest.inCart = response.data.inCart
+                  })
+                })
+              },
+              removeFromCart () {
+                console.log(this.productId)
+                // this.inCart = false
+                body = {"products": [ this.productId ]}
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                var vueInstance = this
+                if ('{{ user.is_authenticated }}' === 'True') {
+                  axios.put('/cart/remove/', body,{
+                    headers: {"X-CSRFToken": csrf.value }
+                  }).then(response => {
+                    this.snackbarText = 'Removed item from cart'
+                    this.snackbarColor = 'red'
+                    this.snackbar = true
+
+                    var vueInstance_nest = vueInstance
+                  })
+                } else {
+                  this.snackbarText = 'You must login to remove item from a cart!'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  this.loginModal = true
+                  return
+                }
+              },
+              submit () {
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                console.log(csrf.value)
+                //axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+                //axios.defaults.xsrfCookieName = "XCSRF-TOKEN"
+                axios.post('/ajaxLogin/', JSON.stringify({
+                  username: this.username,
+                  password: this.password
+                }),{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                .then(response=>{
+                  if (response.data === 'fine') {
+                    location.reload()
+                  }
+                })
+              },
+              submitComment () {
+                console.log('Submiting new Comment')
+                if ('{{ user.is_authenticated }}' === 'False') {
+                  this.snackbarText = 'You must login to submit a comment!'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  this.loginModal = true
+                  return
+                }
+                var vueInstance = this
+                var csrf = document.getElementsByName('csrfmiddlewaretoken')[0]
+                axios.put('/product/' + this.productId + '/comment/add/', {
+                  data: vueInstance.newComment
+                },{
+                  headers: {"X-CSRFToken": csrf.value }
+                })
+                  .then(response => {
+                    if (response.status === 201) {
+                      console.log('Success!')
+                      vueInstance.getComments()
+                      this.snackbarText = 'Added your comment!'
+                      this.snackbarColor = 'green'
+                      this.snackbar = true
+                      this.newC = ''
+                      console.log('AUTHENTICATION')
+                    } else {
+                      vueInstance.getComments()
+                      this.snackbarText = 'Some error occured'
+                      this.snackbarColor = 'red'
+                      this.snackbar = true
+                    }
+                  })
+              },
+              getComments () {
+                var vueInstance = this
+                axios.get('/comments/' + this.productId)
+                  .then(response => {
+                    console.log('Success!')
+                    this.commentArray = response.data
+                  })
+              }
+            },
+            computed: {
+              itemIsInCart () {
+                return this.inCart
+              }
+            }
+          })
+   </script>
+{% endblock %}
+<style scoped>
+      .item-card {
+        margin: 10px 0 0 0 ;
+      }
+      .mt_5 {
+        margin: 5px 0 5px 0 !important;
+        background-color:blue;
+      }
+</style>
