@@ -36,11 +36,12 @@ urlpatterns = [
     url(r'^cart/remove/$', APIViews.RemoveFromCart.as_view(), name='RemoveFromCart'),
     url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
     url(r'^products/$', APIViews.ProductByNameAPIView.as_view(), name='ProductByNameAPI'),
-    url(r'^partpicker/(?P<id1>\d+)/(?P<id2>\d+)$', site_views.cloth_picker, name='ClothPicker'),
+    url(r'^picker/(?P<id1>\d+)/(?P<id2>\d+)$', site_views.cloth_picker, name='ClothPicker'),
     url(r'^user/$', site_views.UserDetailView.as_view(), name='user'),
     url(r'^contact/$', site_views.contact, name='contact'),
     url(r'^signup/$', site_views.signup, name='signup'),
     path('', RedirectView.as_view(url='/home/')),
     path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^checkItem/(?P<product_id>\d+)$', APIViews.ItemInCartAPIView.as_view(), name='CheckItemAPI'),
     url(r'^ajaxLogin/$', site_views.AjaxLogin, name='AjaxLogin')
 ]

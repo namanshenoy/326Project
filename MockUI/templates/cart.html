@@ -12,6 +12,11 @@
           app
         >
           <v-list expand dense>
+            <v-list-tile @click="goToPicker()">
+              <v-list-tile-content>
+                Go to picker
+              </v-list-tile-content>
+            </v-list-tile>
             <v-list-group v-model="storesDrawer">
               <v-list-tile slot="activator">
                 <v-list-tile-content>
@@ -218,12 +223,17 @@
                 <v-card hover  class="item-inner">
                   <v-card-text>
                     <v-layout>
-                      <v-flex xs4 style="margin-left:-10%;">
+                      <v-flex xs5 style="margin-left:-10%;">
                         <div class="jeans-card" style="background: url('{{ item.images.all.0.source }}'); background-position:center; background-repeat: no-repeat; background-size: contain;height: 100%"></div>
                       </v-flex>
-                      <v-flex xs8>
+                      <v-flex xs7>
                         <h2>{{item.name}}</h2>
                         <p>${{item.price|floatformat:2 }}</p>
+                        <br>
+                        <v-btn color="error" href="" v-if="partArr.includes('{{item.id}}')" @click="removeFromPartArr('{{ item.id }}')">Remove from Picker</v-btn>
+                        <v-btn color="normal" href=""  v-else @click="addToPartArr('{{ item.id }}')">Add to Picker</v-btn>
+
+                        <br>
                         <v-btn color="normal" href="" @click="productRoute('{{ item.id }}')">Go to Item</v-btn>
                         <v-btn color="error" href="" @click="removeFromCart({{item.id}})">Remove from Cart</v-btn>
                       </v-flex>
@@ -287,6 +297,7 @@
           },
           data: function (){
             return {
+              partArr: [],
               username: '',
               password: '',
               hAndM: false,
@@ -320,6 +331,35 @@
               productRoute (itemID) {
                 window.location = '/product/' + itemID
               },
+              addToPartArr (itemID) {
+                console.log(this.partArr.length)
+                if (this.partArr.length > 1) {
+                  this.snackbarText = 'Too many clothes chosen for picker'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                  return
+                }
+                if (!this.partArr.includes(itemID)){
+                  this.partArr.push(itemID)
+                  this.snackbarText = 'Added item to picker'
+                  this.snackbarColor = 'green'
+                  this.snackbar = true
+                }
+                console.log(this.partArr)
+              },
+              removeFromPartArr (itemID) {
+                if (this.partArr.includes(itemID)){
+                  var index = this.partArr.indexOf(itemID)
+                  console.log(index)
+                  if (index >= 0) {
+                    this.partArr.splice( index, 1 )
+                  }
+                  this.snackbarText = 'Removed item from picker'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                }
+                console.log(this.partArr)
+              },
               removeFromCart (itemId) {
                 console.log(this.productId)
                 // this.inCart = false
@@ -347,11 +387,23 @@
                 }),{
                   headers: {"X-CSRFToken": csrf.value }
                 })
-                .then(response=>{
+                .then(response => {
                   if (response.data === 'fine') {
                     location.reload()
                   }
                 })
+              },
+              goToPicker (itemID) {
+                window.location = '/picker/' + this.partArr[0] + '/' + this.partArr[1]
+              },
+            },
+            computed: {
+              checkPartArr () {
+                if (this.partArr.length > 2) {
+                  this.snackbarText = 'Too many clothes chosen for picker'
+                  this.snackbarColor = 'red'
+                  this.snackbar = true
+                }
               }
             }
           })
